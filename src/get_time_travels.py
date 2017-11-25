@@ -9,11 +9,12 @@ Author : Charles Gaydon
 Last edited : 23/11/2017
 Saving travel times for train journey from a list of cities in Europe. 
 """
+
+
+### GETTING THE DATA
 key = 'AIzaSyDe_eNdfeT9KSIGFuMzq4nWqilB8J84sk8' #keep it private ! 
 client = googlemaps.Client(key=key)
-
-
-file_in = "data/French_Cities.txt"
+file_in = "../data/French_Cities.txt"
 fileout = file_in[:-4]+"_Matrix.txt"
 print("\nLoading cities from : "+file_in)
 cities = pd.read_csv(file_in).transpose().values
@@ -37,9 +38,30 @@ for i, cit in enumerate(cities):
         else :
             distance_matrix[i,j] = results["rows"][i]["elements"][j]['duration']['value']  
 
-# We get the mean :
+
+
+### FILLING MISSING DATA
+
+factor = 60*60
+distance_matrix/=factor
+
+
+where_nan = [frozenset(x) for x in np.argwhere(np.isnan(distance_matrix))]
+where_nan = set(where_nan)
+couples = []
+for j in where_nan:
+    couples.append(list(j))
+where_nan = couples
+#print(where_nan)
+np.nan_to_num(distance_matrix,999)
+
+#Implémenter dijsktra pour chaque couple de where_nan !
+
+### AVERAGING 
+distance_matrix*=factor
 distance_matrix = (distance_matrix+ distance_matrix.transpose())/2
 
+### SAVING
 df = pd.DataFrame(distance_matrix, columns = cities)
 df.insert(0,"Cities" ,cities)
 df.to_csv(fileout,index = False)
