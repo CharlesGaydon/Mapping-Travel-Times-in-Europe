@@ -10,7 +10,8 @@ Using D3.js data visualisation tool, we propose to build a web application displ
 ### What does it contains ?
 
 This repository is organised as follow : 
-- src : the code used to gather data on train journey durations ;
-- Designs : the different sketches that paved our thinking, a process book to legend them, and an article formalizing what we want to do and who inspired us ;
+- src: the code used to gather data on train journey durations ;
+- Designs: the different sketches that paved our thinking, a process book to legend them, and an article formalizing what we want to do and who inspired us ;
+- data: a list of cities and their temoral ditance matrix, as well as maybe obsolete files.  
 
 
