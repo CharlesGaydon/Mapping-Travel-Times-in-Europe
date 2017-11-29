@@ -12,7 +12,7 @@ Saving travel times for train journey from a list of cities in Europe.
 
 
 ### GETTING THE DATA
-key = 'AIzaSyDe_eNdfeT9KSIGFuMzq4nWqilB8J84sk8' #keep it private ! 
+key = 'INSERT_KEY_HERE' #keep it private ! 
 client = googlemaps.Client(key=key)
 file_in = "../data/French_Cities.txt"
 fileout = file_in[:-4]+"_Matrix.txt"
