@@ -1,8 +1,5 @@
 console.log("START");
 function init() {
-	console.log("init");
-	console.log(document.getElementById("test"));
-	document.getElementById("test").innerHTML = "Paragraph add with JS";
 	mapFranceDisplay();
 }
 
@@ -11,7 +8,7 @@ function mapFranceDisplay(){
 	var width = 700,
   	height = 580;
 
-	var svg = d3.select( "body" )
+	var svg = d3.select( ".mapColumn" )
 		.append( "svg" )
 	  .attr( "width", width )
 	  .attr( "height", height );

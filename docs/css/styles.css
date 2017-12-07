@@ -1,7 +1,25 @@
 h1 {
-	color: blue
+	text-align: center;
+	color: blue;
+}
+
+.columnOrder{
+	display: flex;
 }
 
 .parametersColumn {
+	width: 10%;
 	color: green;
+	border: 1px solid black;
+}
+
+.mapColumn{
+	width: 70%;
+	border: 1px solid black;
+}
+
+.informationColumn{
+	width: 20%;
+	color: red;
+	border: 1px solid black;
 }
