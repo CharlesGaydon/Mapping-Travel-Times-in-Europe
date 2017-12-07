@@ -42,6 +42,8 @@ for i, cit in enumerate(cities):
 
 ### GETTING LAT & LONG
 liste_city_lat_long = []
+latitudes = []
+longitudes = []
 for i, cit in enumerate(cities):
     request = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ cit + 'Centre'
     response = requests.get(request)
@@ -49,6 +51,8 @@ for i, cit in enumerate(cities):
     resp_json_payload = response.json()
     
     liste_city_lat_long.append([cit, resp_json_payload['results'][0]['geometry']['location']])
+    latitudes.append(resp_json_payload['results'][0]['geometry']['location']['lat'])
+    longitudes.append(resp_json_payload['results'][0]['geometry']['location']['lng'])
 
 
 
@@ -76,6 +80,8 @@ distance_matrix = (distance_matrix+ distance_matrix.transpose())/2
 ### SAVING
 df = pd.DataFrame(distance_matrix, columns = cities)
 df.insert(0,"Cities" ,cities)
+df.insert(1,"lat" ,latitudes)
+df.insert(2,"lng" ,longitudes)
 df.to_csv(fileout,index = False)
 print("Results saved in : "+fileout)
 #A FAIRE : moyenner les cotés symétriques
