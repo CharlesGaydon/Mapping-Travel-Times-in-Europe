@@ -4,6 +4,7 @@ import time
 import copy
 import numpy as np
 import pandas as pd
+import requests
 """
 Author : Charles Gaydon
 Last edited : 23/11/2017
@@ -12,7 +13,7 @@ Saving travel times for train journey from a list of cities in Europe.
 
 
 ### GETTING THE DATA
-key = 'INSERT_KEY_HERE' #keep it private ! 
+key = 'AIzaSyDe_eNdfeT9KSIGFuMzq4nWqilB8J84sk8' #keep it private ! 
 client = googlemaps.Client(key=key)
 file_in = "../data/French_Cities.txt"
 fileout = file_in[:-4]+"_Matrix.txt"
@@ -38,6 +39,15 @@ for i, cit in enumerate(cities):
         else :
             distance_matrix[i,j] = results["rows"][i]["elements"][j]['duration']['value']  
 
+
+### GETTING LAT & LONG
+liste_city_lat_long = []
+for cit in enumerate(cities):
+    request = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ cit +'Centre'
+    response = requests.get(request)
+
+    resp_json_payload = response.json()
+    liste_city_lat_long.append([cit, resp_json_payload['results'][0]['geometry']['location']])
 
 
 ### FILLING MISSING DATA
