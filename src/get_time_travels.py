@@ -15,7 +15,7 @@ Saving travel times for train journey from a list of cities in Europe.
 ### GETTING THE DATA
 key = 'KEY_HERE' #keep it private ! 
 client = googlemaps.Client(key=key)
-file_in = "../data/French_Cities.txt"
+file_in = "../docs/data/French_Cities.txt"
 fileout = file_in[:-4]+"_Matrix.txt"
 print("\nLoading cities from : "+file_in)
 cities = pd.read_csv(file_in, header = None).transpose().values
