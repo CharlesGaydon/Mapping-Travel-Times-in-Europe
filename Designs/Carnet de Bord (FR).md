@@ -48,3 +48,7 @@ Technique :
 [D3 maps tutorial](https://www.toptal.com/javascript/a-map-to-perfection-using-d3-js-to-make-beautiful-web-maps)
 De design :
 [Trains of data ](http://senseable.mit.edu/trainsofdata/) : comporte une vidéo de démonstration d'une carte isochronique de la France. Celle-ci se déforme (frontière et lignes de train compris) en fonction de la durée d'un trajet en train. En fond: des cercles isochrones. L'actualisation se fait au fil d'une journée, car les distances temporelles varient avec les horaires de train. Critique: cette carte a beau être intrigante, elle est illisible. La déformation des frontière et le coté temporel de la carte, l'absence de légende de la plupart des villes non référence font perdre les repères. Le fait de conserver les lignes à haute vitesse est une mauvaise idée. L'absence de changement de couleur entre le fond et la France brouillent encore plus les pistes.  
+
+### Cinquième semaine - Commencons l'implémentation.
+
+Nous utilisons l'ide en ligne Cloud9 pour écrire notre site de manière collaborative. 
