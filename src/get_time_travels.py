@@ -13,12 +13,12 @@ Saving travel times for train journey from a list of cities in Europe.
 
 
 ### GETTING THE DATA
-key = 'AIzaSyDe_eNdfeT9KSIGFuMzq4nWqilB8J84sk8' #keep it private ! 
+key = 'KEY_HERE' #keep it private ! 
 client = googlemaps.Client(key=key)
 file_in = "../data/French_Cities.txt"
 fileout = file_in[:-4]+"_Matrix.txt"
 print("\nLoading cities from : "+file_in)
-cities = pd.read_csv(file_in).transpose().values
+cities = pd.read_csv(file_in, header = None).transpose().values
 cities = cities.tolist()[0]
 nb_cities = len(cities)
 print("Cities considered are : ")
@@ -42,12 +42,14 @@ for i, cit in enumerate(cities):
 
 ### GETTING LAT & LONG
 liste_city_lat_long = []
-for cit in enumerate(cities):
-    request = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ cit +'Centre'
+for i, cit in enumerate(cities):
+    request = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ cit + 'Centre'
     response = requests.get(request)
 
     resp_json_payload = response.json()
+    
     liste_city_lat_long.append([cit, resp_json_payload['results'][0]['geometry']['location']])
+
 
 
 ### FILLING MISSING DATA
