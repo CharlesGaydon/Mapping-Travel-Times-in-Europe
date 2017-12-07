@@ -1,25 +1,37 @@
 h1 {
 	text-align: center;
 	color: blue;
+	margin-bottom: 50px;
 }
 
 .columnOrder{
 	display: flex;
 }
 
-.parametersColumn {
+.columnOrder > .parametersColumn {
 	width: 10%;
 	color: green;
 	border: 1px solid black;
 }
 
-.mapColumn{
+.columnOrder > .mapColumn{
 	width: 70%;
-	border: 1px solid black;
 }
 
-.informationColumn{
+.columnOrder > .informationsColumn{
+	display: flex;
+	flex-direction: column;
 	width: 20%;
 	color: red;
 	border: 1px solid black;
+}
+
+.columnOrder > .informationsColumn > .informationsTravel{
+	height: 20%;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.columnOrder > .informationsColumn > .origin, .destination{
+	height: 40%;
 }
