@@ -4,6 +4,7 @@ import time
 import copy
 import numpy as np
 import pandas as pd
+import requests
 """
 Author : Charles Gaydon
 Last edited : 23/11/2017
@@ -12,12 +13,12 @@ Saving travel times for train journey from a list of cities in Europe.
 
 
 ### GETTING THE DATA
-key = 'INSERT_KEY_HERE' #keep it private ! 
+key = 'KEY_HERE' #keep it private ! 
 client = googlemaps.Client(key=key)
-file_in = "../data/French_Cities.txt"
+file_in = "../docs/data/French_Cities.txt"
 fileout = file_in[:-4]+"_Matrix.txt"
 print("\nLoading cities from : "+file_in)
-cities = pd.read_csv(file_in).transpose().values
+cities = pd.read_csv(file_in, header = None).transpose().values
 cities = cities.tolist()[0]
 nb_cities = len(cities)
 print("Cities considered are : ")
@@ -37,6 +38,21 @@ for i, cit in enumerate(cities):
             distance_matrix[i,j] = np.nan
         else :
             distance_matrix[i,j] = results["rows"][i]["elements"][j]['duration']['value']  
+
+
+### GETTING LAT & LONG
+liste_city_lat_long = []
+latitudes = []
+longitudes = []
+for i, cit in enumerate(cities):
+    request = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ cit + 'Centre'
+    response = requests.get(request)
+
+    resp_json_payload = response.json()
+    
+    liste_city_lat_long.append([cit, resp_json_payload['results'][0]['geometry']['location']])
+    latitudes.append(resp_json_payload['results'][0]['geometry']['location']['lat'])
+    longitudes.append(resp_json_payload['results'][0]['geometry']['location']['lng'])
 
 
 
@@ -64,6 +80,8 @@ distance_matrix = (distance_matrix+ distance_matrix.transpose())/2
 ### SAVING
 df = pd.DataFrame(distance_matrix, columns = cities)
 df.insert(0,"Cities" ,cities)
+df.insert(1,"lat" ,latitudes)
+df.insert(2,"lng" ,longitudes)
 df.to_csv(fileout,index = False)
 print("Results saved in : "+fileout)
 #A FAIRE : moyenner les cotés symétriques
