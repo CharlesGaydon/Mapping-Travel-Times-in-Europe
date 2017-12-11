@@ -4,6 +4,7 @@ h1 {
 	margin-bottom: 50px;
 }
 
+
 .columnOrder{
 	display: flex;
 }
@@ -34,4 +35,16 @@ h1 {
 
 .columnOrder > .informationsColumn > .origin, .destination{
 	height: 40%;
+}
+
+.columnOrder > .informationsColumn > .origin > img {
+	max-width: 200px;
+}
+
+.columnOrder > .informationsColumn > .destination > img {
+	max-width: 200px;
+}
+
+footer {
+	background-color: lightgrey;
 }
