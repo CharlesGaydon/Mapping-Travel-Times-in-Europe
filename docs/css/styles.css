@@ -1,50 +1,12 @@
-h1 {
-	text-align: center;
-	color: blue;
-	margin-bottom: 50px;
+.columnInformation{
+	height: 100%;
+	border: 2px solid black;
 }
 
-
-.columnOrder{
-	display: flex;
-}
-
-.columnOrder > .parametersColumn {
-	width: 10%;
-	color: green;
-	border: 1px solid black;
-}
-
-.columnOrder > .mapColumn{
-	width: 70%;
-}
-
-.columnOrder > .informationsColumn{
-	display: flex;
-	flex-direction: column;
-	width: 20%;
-	color: red;
-	border: 1px solid black;
-}
-
-.columnOrder > .informationsColumn > .informationsTravel{
-	height: 20%;
-	border-top: 1px solid black;
+.columnInformation > .borderBot{
+	width: 100%;
+	margin-top: 2px;
+	margin-bottom: 2px;
 	border-bottom: 1px solid black;
 }
 
-.columnOrder > .informationsColumn > .origin, .destination{
-	height: 40%;
-}
-
-.columnOrder > .informationsColumn > .origin > img {
-	max-width: 200px;
-}
-
-.columnOrder > .informationsColumn > .destination > img {
-	max-width: 200px;
-}
-
-footer {
-	background-color: lightgrey;
-}
