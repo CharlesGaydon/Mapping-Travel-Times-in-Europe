@@ -12,7 +12,12 @@
 
     var width = 700,
         height = 580;
-
+    
+    var paris = [48.862725,2.287592];
+    
+    var plng = 48;
+    
+    var plat = 2;
 
     var svg = d3.select( "body" )
       .append( "svg" )
@@ -29,6 +34,7 @@
                  .projection(projection);
     
     d3.json("france.json", function(json) {
+            console.log(json)
             g.selectAll("path")
               .data(json.features)
               .enter()
@@ -39,6 +45,22 @@
     
     // Chargement des donnees
     d3.csv("French-cities_lat_long.csv", function(error, data) {
+      
+            data.forEach(function(d) {
+        d.plng = 2.287592;
+        d.plat = 48.862725;
+      });
+       g.selectAll("line")
+         .data(data)
+         .enter()
+         .append("line")
+          .attr("x1", function(d) {return projection([d.long, d.lat])[0];})
+          .attr("y1", function(d) {return projection([d.long, d.lat])[1];})
+          .attr("x2", function(d) {return projection([d.plng, d.plat])[0]})
+         .attr("y2", function(d) {return projection([d.plng, d.plat])[1];})
+          .attr("stroke","grey")
+          .attr("stroke-width",1)
+          .attr("stroke-dasharray",4);
         g.selectAll("circle")
            .data(data)
            .enter()
@@ -49,11 +71,20 @@
            .attr("cy", function(d) {
                    return projection([d.long, d.lat])[1];
            })
-           .attr("r", 5)
-           .style("fill", "red");
+           .attr("r", 15)
+           .style("fill", "yellow");
+      
+      
+      
+      
     });
 
     
   </script>
 </body>
 
+
+
+
+
+    
