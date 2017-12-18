@@ -1,0 +1,305 @@
+{
+   "type": "FeatureCollection",
+   "features": [
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Paris",
+    "lat":46.694162,
+    "long":1.811624
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Marseille",
+    "lat":47.101757,
+    "long":1.941251
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Lyon",
+    "lat":45.7524554,
+    "long":4.826715600000001
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Toulouse",
+    "lat":43.605008,
+    "long":1.443139
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Nice",
+    "lat":43.7076464,
+    "long":7.2821424
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Nantes",
+    "lat":47.2158892,
+    "long":-1.5575816
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Strasbourg",
+    "lat":48.58486389999999,
+    "long":7.745490599999999
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Montpellier",
+    "lat":43.60967,
+    "long":3.8853787
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Bordeaux",
+    "lat":44.8277639,
+    "long":-0.5944847
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Rennes",
+    "lat":48.1152187,
+    "long":-1.6830709
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Le Havre",
+    "lat":46.3422348,
+    "long":-72.5567609
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Reims",
+    "lat":49.2592966,
+    "long":4.025657799999999
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Lille",
+    "lat":50.6313675,
+    "long":3.0654478
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Saint-Étienne",
+    "lat":45.4390088,
+    "long":4.3886181
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Toulon",
+    "lat":43.1198236,
+    "long":5.9352851
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Grenoble",
+    "lat":48.311497,
+    "long":0.943777
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Angers",
+    "lat":47.4692016,
+    "long":-0.5497215
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Dijon",
+    "lat":47.32796,
+    "long":5.051065
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Brest",
+    "lat":48.3849182,
+    "long":-4.4928184
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Le Mans",
+    "lat":47.9951865,
+    "long":0.1940041
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Clermont-Ferrand",
+    "lat":45.770279,
+    "long":3.086468
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Amiens",
+    "lat":49.892168,
+    "long":2.2994263
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Aix-en-Provence",
+    "lat":43.5289709,
+    "long":5.4409182
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Limoges",
+    "lat":45.8300738,
+    "long":1.2558771
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  { }
+    },
+    "properties": {
+    "City":"Nîmes",
+    "lat":43.837755,
+    "long":4.363834
+    }
+  }
+]
+}
