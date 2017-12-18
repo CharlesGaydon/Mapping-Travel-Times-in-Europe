@@ -5,19 +5,26 @@ function init() {
 
 
 function mapFranceDisplay(){
+
+    // Canvas
     var width = 600,
     height = 500;
 
+    // Projection
     var svg = d3.select(".mapColumn").append("svg")
       .attr("width", width)
       .attr("height", height);
-    
     var g = svg.append("g");
-
     var projection = d3.geoConicConformal().center([8, 46.279229]).scale(2500);
+    var path = d3.geoPath().projection(projection);
 
-    var path = d3.geoPath() // d3.geo.path avec d3 version 3
-                 .projection(projection);
+    // Define the div for the tooltip
+    var div = d3.select("body")
+        .append("div")   
+        .attr("class", "tooltip")               
+        .style("opacity", 0)
+        //.style("background", "lightsteelblue");
+        // TODO : le css n'est pas utilisé pour div.tooltip. Pourquoi ??
 
     d3.json("data/france.json", function(json) {
         console.log(json)
@@ -28,6 +35,7 @@ function mapFranceDisplay(){
           .attr("d", path)
           .style("fill", "#ccc");
     });
+
     d3.json("data/French_cities.geojson", function(cities) {
         //console.log(cities.features)
         console.log("projecting French cities")
@@ -43,13 +51,24 @@ function mapFranceDisplay(){
             .data(cities.features)
             .enter()
             .append('circle')
-            .attr("cx", function(d) {return d.properties.plong;})
-            .attr("cy", function(d) { return d.properties.plat;})
-            .attr("r", 7)
-            .style("fill", "orange")
-        cities_objects.append("title")
-            .text(function(d){return d.properties.City})
-            .attr("font-size",100)
+                .attr("cx", function(d) {return d.properties.plong;})
+                .attr("cy", function(d) { return d.properties.plat;})
+                .attr("r", 7)
+                .style("fill", "orange")
+                .on("mouseover", function(d) {
+                    div.transition()
+                        .duration(200)
+                        .style("opacity",0.9)
+                    div.html(d.properties.City) //"<br/>"   
+                        .style("left", (d3.event.pageX +5) + "px")     
+                        .style("top", (d3.event.pageY - 25) + "px");
+                })
+                .on("mouseout", function(d) {       
+                    div.transition()        
+                        .duration(100)      
+                        .style("opacity", 0);   
+                });
+
         });
 
 }
@@ -82,9 +101,4 @@ function mapEuropeDisplay(){
 
 }
 
-function citiesFranceDisplay(projection){
-  var svg = d3.select("g")
-  console.log(svg)
-
-}
 init();
