@@ -5,10 +5,10 @@ function init() {
 
 
 function mapFranceDisplay(){
-  var width = 600,
+    var width = 600,
     height = 500;
 
-  var svg = d3.select(".mapColumn").append("svg")
+    var svg = d3.select(".mapColumn").append("svg")
       .attr("width", width)
       .attr("height", height);
     
@@ -18,31 +18,38 @@ function mapFranceDisplay(){
 
     var path = d3.geoPath() // d3.geo.path avec d3 version 3
                  .projection(projection);
-   /* 
-          d3.json("data/france.json", function(json) {
-            console.log(json)
-            g.selectAll("path")
-              .data(json.features)
-              .enter()
-              .append("path")
-              .attr("d", path)
-              .style("fill", "#ccc");
-        });*/
-          d3.json("data/French_cities.geojson", function(cities) {
-            console.log(cities.features)
- //           var json = csv.forEach(function(d){console.log(d); return {type : "Feature", id : d[0],};})
-          g.selectAll('circle')
+
+    d3.json("data/france.json", function(json) {
+        console.log(json)
+        g.selectAll("path")
+          .data(json.features)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          .style("fill", "#ccc");
+    });
+    d3.json("data/French_cities.geojson", function(cities) {
+        //console.log(cities.features)
+        console.log("projecting French cities")
+        cities.features.forEach(function(d){
+            var projected_city = projection([d.properties.long, d.properties.lat])
+            
+            d.properties.plong = projected_city[0]
+            d.properties.plat = projected_city[1]                
+        }) 
+        var cities_objects = svg.append("g")
+            .attr("class", "cities")
+            .selectAll('circle')
             .data(cities.features)
             .enter()
             .append('circle')
-            .each(function (d) {
-                var location = projection([d.properties.long, d.properties.lat]);
-                //console.log(location)
-                d3.select(this).attr({
-                    cx: location[0], cy: location[1],
-                    r: 100
-                });
-            })
+            .attr("cx", function(d) {return d.properties.plong;})
+            .attr("cy", function(d) { return d.properties.plat;})
+            .attr("r", 7)
+            .style("fill", "orange")
+        cities_objects.append("title")
+            .text(function(d){return d.properties.City})
+            .attr("font-size",100)
         });
 
 }

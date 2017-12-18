@@ -46,7 +46,7 @@
     // Chargement des donnees
     d3.csv("French-cities_lat_long.csv", function(error, data) {
       
-            data.forEach(function(d) {
+      data.forEach(function(d) {
         d.plng = 2.287592;
         d.plat = 48.862725;
       });
