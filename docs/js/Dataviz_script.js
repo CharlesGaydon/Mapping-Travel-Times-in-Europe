@@ -84,14 +84,7 @@ function mapFranceDisplay(){
             .attr("stroke-dasharray",4);
 
 
-        g.selectAll("circles")
-            .data(cities.features)
-            .enter()
-            .append("circle")
-                .attr("cx", 12)
-                .attr("cy", 45)
-                .attr("r", 7)
-            .style("fill", "blue");
+
 
 
         });
