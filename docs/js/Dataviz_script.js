@@ -1,6 +1,13 @@
 console.log("START");
 function init() {
 	mapFranceDisplay();
+
+
+    // EXEMPLE D'AJOUT DE VILLE
+    var villeName = document.getElementById("villeName");
+    villeName.textContent="Texte";
+    console.log("villeName");
+    console.log(villeName);
 }
 
 
