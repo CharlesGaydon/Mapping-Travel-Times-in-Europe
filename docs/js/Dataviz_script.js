@@ -84,7 +84,7 @@ function mapFranceDisplay(){
             .attr("stroke-dasharray",4);
 
 
-        g.selectAll("circle")
+        g.selectAll("circles")
             .data(cities.features)
             .enter()
             .append("circle")
