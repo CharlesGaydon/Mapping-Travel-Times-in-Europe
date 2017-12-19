@@ -11,7 +11,7 @@ function mapFranceDisplay(){
     height = 500;
 
 
-    var alpha = 0.4;
+    var alpha = 1.3;
 
     // Projection
     var svg = d3.select(".mapColumn").append("svg")
