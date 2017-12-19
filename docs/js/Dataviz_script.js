@@ -88,8 +88,8 @@ function mapFranceDisplay(){
             .data(cities.features)
             .enter()
             .append("circle")
-                .attr("cx", function(d) {return  alpha * d.properties.plong + (1 - alpha) * projection([2,48])[0];} )
-                .attr("cy",  function(d) {return alpha * d.properties.plat+ (1 - alpha) * projection([2,48])[1];})
+                .attr("cx", function(d) {return  projection([2,48])[0] + alpha * (projection([2,48])[0] - d.properties.plong) / norme([projection([2,48])[0] - d.properties.plong,projection([2,48])[1] - d.properties.plat]) ;} )
+                .attr("cy",  function(d) {return projection([2,48])[1] + alpha * (projection([2,48])[1] - d.properties.plat) / norme([projection([2,48])[0] - d.properties.plong,projection([2,48])[1] - d.properties.plat]) ;} )
                 .attr("r", 4)
             .style("fill", "blue");
 
@@ -97,6 +97,13 @@ function mapFranceDisplay(){
         });
 
 }
+
+function norme(vecteur){
+    var v_norme = Math.sqrt( Math.pow(vecteur[0],2) + Math.pow(vecteur[1],2) );
+    return v_norme
+}
+
+
 function mapEuropeDisplay(){
 	var width = 700,
   	height = 580;
