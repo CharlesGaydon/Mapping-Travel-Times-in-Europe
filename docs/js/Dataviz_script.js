@@ -88,8 +88,8 @@ function mapFranceDisplay(){
             .data(cities.features)
             .enter()
             .append("circle")
-                .attr("cx", alpha * function(d) {return d.properties.plong;} + (1 - alpha ) * projection([2,48])[0])
-                .attr("cy", alpha * function(d) { return d.properties.plat;} + (1 - alpha ) * projection([2,48])[1])
+                .attr("cx", alpha * function(d) {return projection([d.properties.long, d.properties.lat])[0];} + (1 - alpha ) * projection([2,48])[0])
+                .attr("cy", alpha * function(d) { return projection([d.properties.long, d.properties.lat])[1];} + (1 - alpha ) * projection([2,48])[1])
                 .attr("r", 7)
             .style("fill", "blue");
 
