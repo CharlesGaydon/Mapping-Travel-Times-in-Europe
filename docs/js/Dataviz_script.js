@@ -68,12 +68,13 @@ function mapFranceDisplay(){
                         .duration(100)      
                         .style("opacity", 0);   
                 });
+                
         g.selectAll("line")
             .data(cities.features)
             .enter()
             .append("line")
-            .attr("x1", function(d) {return projection([d.properties.long, d.properties.lat])[0];})
-            .attr("y1", function(d) {return projection([d.properties.long, d.properties.lat])[1];})
+            .attr("x1", function(d) {return d.properties.plong;})
+            .attr("y1", function(d) {return d.properties.plat;})
             .attr("x2", projection([2,48])[0])
             .attr("y2",  projection([2,48])[1])
             .attr("stroke","grey")
