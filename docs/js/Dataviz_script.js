@@ -1,6 +1,13 @@
 console.log("START");
 function init() {
 	mapFranceDisplay();
+
+
+    // EXEMPLE D'AJOUT DE VILLE
+    var villeName = document.getElementById("villeName");
+    villeName.textContent="Texte";
+    console.log("villeName");
+    console.log(villeName);
 }
 
 
@@ -9,6 +16,11 @@ function mapFranceDisplay(){
     // Canvas
     var width = 600,
     height = 500;
+
+
+    var alpha = 75;
+
+    var paris = [2,48];
 
     // Projection
     var svg = d3.select(".mapColumn").append("svg")
@@ -73,17 +85,48 @@ function mapFranceDisplay(){
             .data(cities.features)
             .enter()
             .append("line")
-            .attr("x1", function(d) {return d.properties.plong;})
-            .attr("y1", function(d) {return d.properties.plat;})
-            .attr("x2", projection([2,48])[0])
-            .attr("y2",  projection([2,48])[1])
-            .attr("stroke","grey")
-            .attr("stroke-width",1)
-            .attr("stroke-dasharray",4);
+                .attr("x1", function(d) {return d.properties.plong;})
+                .attr("y1", function(d) {return d.properties.plat;})
+                .attr("x2", projection([2,48])[0])
+                .attr("y2",  projection([2,48])[1])
+                .attr("stroke","grey")
+                .attr("stroke-width",1)
+                .attr("stroke-dasharray",4);
+
+
+            
+        g.selectAll("circle")
+            .data(cities.features)
+            .enter()
+            .append("circle")
+                .attr("cx", function(d) {return new_coord(alpha, [projection(paris)[0],projection(paris)[1]], [d.properties.plong,d.properties.plat])[0];} )
+                .attr("cy", function(d) {return new_coord(alpha, [projection(paris)[0],projection(paris)[1]], [d.properties.plong,d.properties.plat])[1];} )
+                .attr("r", 6)
+                .style("fill", "blue");
+
 
         });
 
 }
+
+function norme(vecteur){
+    var v_norme = Math.sqrt( Math.pow(vecteur[0],2) + Math.pow(vecteur[1],2) );
+    return v_norme;
+}
+    
+function new_coord(v_alpha, vecteur_1, vecteur_2){
+  var norme_diff = norme([vecteur_2[0] - vecteur_1[0], vecteur_2[1] - vecteur_1[1]]);
+  var x = vecteur_1[0] + v_alpha * (vecteur_2[0] - vecteur_1[0]) * Math.pow(norme_diff,-1);
+  var y =  vecteur_1[1] + v_alpha * (vecteur_2[1] - vecteur_1[1]) * Math.pow(norme_diff,-1);
+  return [x,y];
+}
+
+
+var paris = [2,48];
+
+
+
+
 function mapEuropeDisplay(){
 	var width = 700,
   	height = 580;
