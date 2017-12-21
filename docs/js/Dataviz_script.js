@@ -5,13 +5,6 @@ var alpha = 75;
 function init() {
     mapFranceDisplay();
     UpdateCitiesFrance();
-
-
-    // EXEMPLE D'AJOUT DE VILLE
-    var villeName = document.getElementById("villeName");
-    villeName.textContent="Texte";
-    console.log("villeName");
-    console.log(villeName);
 }
 
 
@@ -41,7 +34,6 @@ function mapFranceDisplay(){
 
     // BACKGROUND OF THE MAP
     d3.json("data/france.json", function(json) {
-        console.log(json)
         g.selectAll("path")
           .data(json.features)
           .enter()
@@ -50,13 +42,14 @@ function mapFranceDisplay(){
           .style("fill", "#7BCDC2");
     });
 
-    d3.json("data/French_cities.geojson", function(cities) {
-        //console.log(cities.features)
+    d3.csv("data/French-cities_lat_long.csv", function(cities) {
         console.log("projecting French cities")
-        cities.features.forEach(function(d){
-            var projected_city = projection([d.properties.long, d.properties.lat])
-            d.properties.plong = projected_city[0]
-            d.properties.plat = projected_city[1]                
+        cities.forEach(function(d){
+            d.long = parseFloat(d.long)
+            d.lat = parseFloat(d.lat)
+            var projected_city = projection([d.long, d.lat])
+            d.plong = projected_city[0]
+            d.plat = projected_city[1]                
         }) 
         // associer à chaque ville un dictionniare avec pour chaque autre ville ses voisins.
         // Tous les import de données initiaux se font ici.
@@ -64,30 +57,44 @@ function mapFranceDisplay(){
 
     // STATIC CITIES
     g.selectAll('.Static_Cities')
-            .data(cities.features)
+            .data(cities)
             .enter()
             .append('circle')
                 .attr("class","Static_Cities")
-                .attr("cx", function(d) {return d.properties.plong;})
-                .attr("cy", function(d) { return d.properties.plat;})
-                .attr("r", 3.5)
+                .attr("cx", function(d) {return d.plong;})
+                .attr("cy", function(d) { return d.plat;})
+                //.attr("r", 3.5) //pas de rayon initialement !
                 .style("fill", "green")
                 .style("opacity",0.8)
+                .on("click",function(d){
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            console.log(My_reference)
+                        }else{
+                            My_reference = undefined;
+                        }
+                    }else{
+                        My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                    }
+                        console.log("Ref :"+ My_reference)
+                    UpdateCitiesFrance();
+                });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
-            .data(cities.features)
+            .data(cities)
             .enter()
             .append('circle')
                 .attr("class","Cities")
-                .attr("cx", function(d) {return d.properties.plong;})
-                .attr("cy", function(d) { return d.properties.plat;})
+                .attr("cx", function(d) {return d.plong;})
+                .attr("cy", function(d) { return d.plat;})
                 .attr("r", 5.5)
                 .style("fill", "#7171D7")
                 .on("mouseover", function(d) {
                     div.transition()
                         .duration(200)
                         .style("opacity",0.9)
-                    div.html(d.properties.City) //"<br/>"   
+                    div.html(d.City) //"<br/>"   
                         .style("left", (d3.event.pageX +5) + "px")     
                         .style("top", (d3.event.pageY - 25) + "px");
                 })
@@ -98,14 +105,14 @@ function mapFranceDisplay(){
                 })
                 .on("click",function(d){
                     if(typeof My_reference !== 'undefined'){
-                        if(My_reference.City !=d.properties.City){
-                            My_reference = {City :d.properties.City, plong : d.properties.plong, plat : d.properties.plat};
+                        if(My_reference.City !=d.City){
+                            My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                             console.log(My_reference)
                         }else{
                             My_reference = undefined;
                         }
                     }else{
-                        My_reference = {City :d.properties.City, plong : d.properties.plong, plat : d.properties.plat};
+                        My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                     }
                         console.log("Ref :"+ My_reference)
                     UpdateCitiesFrance();
@@ -113,11 +120,11 @@ function mapFranceDisplay(){
     
     // INITIALIZE TRANSPARENT LINES
     g.selectAll("line")
-        .data(cities.features)
+        .data(cities)
         .enter()
         .append("line")
-            .attr("x1", function(d) {return d.properties.plong;})
-            .attr("y1", function(d) {return d.properties.plat;})
+            .attr("x1", function(d) {return d.plong;})
+            .attr("y1", function(d) {return d.plat;})
             .attr("x2", projection([2,48])[0])
             .attr("y2",  projection([2,48])[1])
             .attr("stroke","grey")
@@ -138,39 +145,47 @@ function UpdateCitiesFrance(){
         // REBOUGER DANS L'AUTRE SENS LES VILLES ICI !
         g.selectAll(".Cities")
             .transition().duration(300)
-            .attr("cx", function(d) {return d.properties.plong;} )
-            .attr("cy", function(d) {return d.properties.plat;} )
+            .attr("cx", function(d) {return d.plong;} )
+            .attr("cy", function(d) {return d.plat;} )
             .attr("r", 5.5)
             .style("fill", "#7171D7");
+
+        g.selectAll(".Static_Cities")
+            .transition().duration(300)
+            .attr("r", 0)
     
     }else{
+
+        // DYNAMIC CITIES
+        g.selectAll(".Cities").filter(function(d){return My_reference.City != d.City })
+            .transition().duration(300)
+            .attr("cx", function(d) {console.log(d);return new_coord(alpha, [My_reference.plong,My_reference.plat], [d.plong,d.plat])[0];} )
+            .attr("cy", function(d) {return new_coord(alpha, [My_reference.plong,My_reference.plat], [d.plong,d.plat])[1];} )
+            .attr("r", 4.5)
+            .style("fill", "#7171D7");
+
+        g.selectAll(".Cities")
+            .filter(function(d){return My_reference.City == d.City;})
+            .transition().duration(300)
+            .attr("cx", function(d){return d.plong;})
+            .attr("cy", function(d){return d.plat;})
+            .attr("r",6.5)
+            .attr("fill","#C14040")
+        g.selectAll(".Static_Cities")
+            .transition().duration(300)
+            .attr("r", 5.5)
+            .style("fill", "green");
+
         g.selectAll("line")
-            .attr("x1", function(d) {return d.properties.plong;})
-            .attr("y1", function(d) {return d.properties.plat;})
+            .attr("x1", function(d) {return d.plong;})
+            .attr("y1", function(d) {return d.plat;})
             .attr("x2", My_reference.plong)
             .attr("y2",  My_reference.plat)
             .attr("stroke","grey")
             .attr("stroke-width",1)
             .attr("stroke-dasharray",4)
             .attr("opacity", 1)
-
-
-    // DYNAMIC CITIES
-    g.selectAll(".Cities").filter(function(d){return My_reference.City != d.properties.City })
-        .transition().duration(300)
-        .attr("cx", function(d) {console.log(d);return new_coord(alpha, [My_reference.plong,My_reference.plat], [d.properties.plong,d.properties.plat])[0];} )
-        .attr("cy", function(d) {return new_coord(alpha, [My_reference.plong,My_reference.plat], [d.properties.plong,d.properties.plat])[1];} )
-        .attr("r", 4.5)
-        .style("fill", "#7171D7");
-
-    g.selectAll(".Cities")
-        .filter(function(d){return My_reference.City == d.properties.City;})
-        .transition().duration(300)
-        .attr("cx", function(d){return d.properties.plong;})
-        .attr("cy", function(d){return d.properties.plat;})
-        .attr("r",6.5)
-        .attr("fill","#153280")
-    }
+        }
 
 };    
 
