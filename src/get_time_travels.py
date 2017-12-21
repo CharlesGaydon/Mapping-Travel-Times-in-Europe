@@ -14,36 +14,58 @@ Saving travel times for train journey from a list of cities in Europe.
 ### GETTING THE DATA
 key = 'AIzaSyDe_eNdfeT9KSIGFuMzq4nWqilB8J84sk8' #keep it private ! 
 client = googlemaps.Client(key=key)
-file_in = "../docs/data/french_cities_10.txt"
-fileout = file_in[:-4]+"_Matrix.txt"
+file_in = "../docs/data/French-cities.txt"
+fileout = file_in[:-4]+"_Matrixfdf.txt"
 print("\nLoading cities from : "+file_in)
 cities = pd.read_csv(file_in, header = None).transpose().values
-cities = cities.tolist()[0]
+cities = cities.tolist()[0][:3]
 nb_cities = len(cities)
 print("Cities considered are : ")
 print(str(cities))
 
-when=time.mktime(time.strptime('29/11/2017:8', "%d/%m/%Y:%H"))
+
+
+when=time.mktime(time.strptime('30/12/2017:8', "%d/%m/%Y:%H"))
 now = datetime.fromtimestamp(when)
 print('what')
+"""
 results = client.distance_matrix(cities, cities,
                                             mode="transit",
                                             language="en-AU",
                                             departure_time=when,
                                             transit_mode="rail")
-print('what')
+"""
+erreurs = ['NOT_FOUND', 'ZERO_RESULTS']
+
 distance_matrix = np.array([[0.0]*nb_cities]*nb_cities)
+"""
 for i, cit in enumerate(cities):
     for j in range(nb_cities):
-        if results["rows"][i]["elements"][j]["status"]=='ZERO_RESULTS':
+        if results["rows"][i]["elements"][j]["status"] in erreurs:
             distance_matrix[i,j] = np.nan
-        else :
-            distance_matrix[i,j] = results["rows"][i]["elements"][j]['duration']['value']  
+        else:
+           distance_matrix[i,j] = results["rows"][i]["elements"][j]['duration']['value']
+
+"""
+for i in range(nb_cities):
+    for j in range(nb_cities):
+        essai = client.distance_matrix([cities[i]], [cities[i]],
+                                            mode="transit",
+                                            language="en-AU",
+                                            departure_time=when,
+                                            transit_mode="rail")
+        if essai["rows"][0]["elements"][0]["status"] in erreurs:
+            distance_matrix[i,j] = np.nan
+        else:
+            distance_matrix[i,j] = essai["rows"][0]["elements"][0]['duration']['value']
 
 
 
 
+out = pd.DataFrame(distance_matrix, index=cities, columns=cities)
+out.to_csv(fileout )
 
+"""
 
 ### FILLING MISSING DATA
 
@@ -74,7 +96,6 @@ print("Results saved in : "+fileout)
 #A FAIRE : moyenner les cotés symétriques
 #Enfin : répéter toute l'opération plusieurs jours pour être sur d'avoir un min,
 # puis faire dijsktra sur matrice obtenue pour remplir les nan.
-
 
 """
 
