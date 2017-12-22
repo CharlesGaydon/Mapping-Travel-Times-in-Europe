@@ -4,6 +4,7 @@ import time
 import copy
 import numpy as np
 import pandas as pd
+import json
 """
 Author : Charles Gaydon
 Last edited : 23/11/2017
@@ -16,9 +17,10 @@ key = 'AIzaSyDe_eNdfeT9KSIGFuMzq4nWqilB8J84sk8' #keep it private !
 client = googlemaps.Client(key=key)
 file_in = "../docs/data/French-cities.txt"
 fileout = file_in[:-4]+"_Matrixfdf.txt"
+fileoutjson = file_in[:-4]+"_Matrijson.json"
 print("\nLoading cities from : "+file_in)
 cities = pd.read_csv(file_in, header = None).transpose().values
-cities = cities.tolist()[0][:3]
+cities = cities.tolist()[0]
 nb_cities = len(cities)
 print("Cities considered are : ")
 print(str(cities))
@@ -49,7 +51,7 @@ for i, cit in enumerate(cities):
 """
 for i in range(nb_cities):
     for j in range(nb_cities):
-        essai = client.distance_matrix([cities[i]], [cities[i]],
+        essai = client.distance_matrix([cities[i]], [cities[j]],
                                             mode="transit",
                                             language="en-AU",
                                             departure_time=when,
@@ -63,7 +65,25 @@ for i in range(nb_cities):
 
 
 out = pd.DataFrame(distance_matrix, index=cities, columns=cities)
+"""
 out.to_csv(fileout )
+"""
+
+
+jsonresult = dict()
+jsonresult['list'] = []
+for cit in cities:
+	for kit in cities:
+		if cit != kit:
+			event = dict()
+			event['source'] = cit
+			event['target'] = kit
+			event['time'] = str(out[cit][kit])
+			jsonresult['list'].append(event)
+j = json.dumps(jsonresult)
+f = open(fileoutjson)
+f.write(j)
+f.close()
 
 """
 
