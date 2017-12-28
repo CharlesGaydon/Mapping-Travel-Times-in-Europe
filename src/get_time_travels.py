@@ -78,12 +78,12 @@ for cit in cities:
 			event = dict()
 			event['source'] = cit
 			event['target'] = kit
-			event['time'] = str(out[cit][kit])
+			event['time'] = (out[cit][kit])
 			jsonresult['list'].append(event)
-j = json.dumps(jsonresult)
-f = open(fileoutjson)
-f.write(j)
-f.close()
+
+
+with open(fileoutjson, 'w') as fp:
+    json.dump(jsonresult, fp)
 
 """
 
