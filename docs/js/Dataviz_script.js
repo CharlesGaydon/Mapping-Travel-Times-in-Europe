@@ -1,6 +1,14 @@
 console.log("START");
 var My_reference = undefined
 var alpha = 0.0089;
+dynamic_color = "green";
+static_color = "#7171D7";
+main_color = "#ED0109";
+radius_main = 6.5;
+radius_dynamic = 5.5; 
+radius_static = 4;
+France_color = "#97F2F2"; //before : "#7BCDC2"
+
 
 function init() {
     mapFranceDisplay();
@@ -39,7 +47,7 @@ function mapFranceDisplay(){
           .enter()
           .append("path")
           .attr("d", path)
-          .style("fill", "#7BCDC2");
+          .style("fill", France_color);
     });
 
     d3.csv("data/French-cities_lat_long.csv", function(cities) {
@@ -63,7 +71,7 @@ function mapFranceDisplay(){
                         for(var key in distances[dist_index]){
                            distances[dist_index][key] = parseFloat(distances[dist_index][key])
                            if(isNaN(distances[dist_index][key])){
-                            distances[dist_index][key] = 15
+                            distances[dist_index][key] = 10000
                            }
                         }
                         cities[city_index]["dist"] = distances[dist_index]
@@ -74,9 +82,6 @@ function mapFranceDisplay(){
         })
         console.log(cities)
         console.log(Object.keys(cities[0]))
-        cities.forEach(function(d){
-            console.log(d["dist"])  
-        })
         // Tous les import de données initiaux se font ici.
         var g = d3.select("g")
 
@@ -89,7 +94,7 @@ function mapFranceDisplay(){
                     .attr("cx", function(d) {return d.plong;})
                     .attr("cy", function(d) { return d.plat;})
                     //.attr("r", 3.5) //pas de rayon initialement !
-                    .style("fill", "green")
+                    .style("fill", static_color)
                     .style("opacity",0.8)
                     .on("click",function(d){
                         if(typeof My_reference !== 'undefined'){
@@ -101,8 +106,8 @@ function mapFranceDisplay(){
                             }
                         }else{
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
-                        }
                             console.log("Ref :"+ My_reference.City)
+                        }
                         UpdateCitiesFrance();
                     });
         // DYNAMIC CITIES
@@ -113,8 +118,8 @@ function mapFranceDisplay(){
                 .attr("class","Cities")
                 .attr("cx", function(d) {return d.plong;})
                 .attr("cy", function(d) { return d.plat;})
-                .attr("r", 5.5)
-                .style("fill", "#7171D7")
+                .attr("r", radius_dynamic)
+                .style("fill", dynamic_color)
                 .on("mouseover", function(d) {
                     div.transition()
                         .duration(200)
@@ -138,8 +143,8 @@ function mapFranceDisplay(){
                         }
                     }else{
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
-                    }
                         console.log("Ref :"+ My_reference.City)
+                    }
                     UpdateCitiesFrance();
                 });
     
@@ -172,8 +177,8 @@ function UpdateCitiesFrance(){
             .transition().duration(300)
             .attr("cx", function(d) {return d.plong;} )
             .attr("cy", function(d) {return d.plat;} )
-            .attr("r", 5.5)
-            .style("fill", "#7171D7");
+            .attr("r", radius_static)
+            .style("fill", dynamic_color);
 
         g.selectAll(".Static_Cities")
             .transition().duration(300)
@@ -184,22 +189,23 @@ function UpdateCitiesFrance(){
         // DYNAMIC CITIES
         g.selectAll(".Cities").filter(function(d){return My_reference.City != d.City })
             .transition().duration(300)
-            .attr("cx", function(d) {console.log(d.dist[My_reference.City]);return new_coord(alpha*d["dist"][My_reference.City], [My_reference.plong,My_reference.plat], [d.plong,d.plat])[0];} )
+            .attr("cx", function(d) {return new_coord(alpha*d["dist"][My_reference.City], [My_reference.plong,My_reference.plat], [d.plong,d.plat])[0];} )
             .attr("cy", function(d) {return new_coord(alpha*d["dist"][My_reference.City], [My_reference.plong,My_reference.plat], [d.plong,d.plat])[1];} )
-            .attr("r", 4.5)
-            .style("fill", "#7171D7");
+            .attr("r", radius_dynamic)
+            .style("fill", dynamic_color);
 
         g.selectAll(".Cities")
             .filter(function(d){return My_reference.City == d.City;})
             .transition().duration(300)
-            .attr("cx", function(d){return d.plong;})
+            .attr("cx", function(d){console.log("here",d.City); return d.plong;})
             .attr("cy", function(d){return d.plat;})
-            .attr("r",6.5)
-            .attr("fill","#C14040")
+            .attr("r",radius_main)
+            .style("fill",main_color)
+
         g.selectAll(".Static_Cities")
             .transition().duration(300)
-            .attr("r", 5.5)
-            .style("fill", "green");
+            .attr("r", radius_static)
+            .style("fill", static_color);
 
         g.selectAll("line")
             .attr("x1", function(d) {return d.plong;})
