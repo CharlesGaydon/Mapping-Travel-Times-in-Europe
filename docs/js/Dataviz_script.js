@@ -213,7 +213,7 @@ function UpdateCitiesFrance(){
             .attr("x2", My_reference.plong)
             .attr("y2",  My_reference.plat)
             .attr("stroke","grey")
-            .attr("stroke-width",1)
+            .attr("stroke-width",0)
             .attr("stroke-dasharray",4)
             .attr("opacity", 0)
         }
