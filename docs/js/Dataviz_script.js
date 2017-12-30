@@ -22,7 +22,7 @@ function mapFranceDisplay(){
     var width = 600,
     height = 500;
 
-    //var paris = [2,48];
+    var transition_time = 600;
 
     // Projection
     var svg = d3.select(".mapColumn").append("svg")
@@ -174,21 +174,21 @@ function UpdateCitiesFrance(){
             .attr("opacity",0)
         // REBOUGER DANS L'AUTRE SENS LES VILLES ICI !
         g.selectAll(".Cities")
-            .transition().duration(300)
+            .transition().duration(transition_time)
             .attr("cx", function(d) {return d.plong;} )
             .attr("cy", function(d) {return d.plat;} )
             .attr("r", radius_static)
             .style("fill", dynamic_color);
 
         g.selectAll(".Static_Cities")
-            .transition().duration(300)
+            .transition().duration(transition_time)
             .attr("r", 0)
     
     }else{
 
         // DYNAMIC CITIES
         g.selectAll(".Cities").filter(function(d){return My_reference.City != d.City })
-            .transition().duration(300)
+            .transition().duration(transition_time)
             .attr("cx", function(d) {return new_coord(alpha*d["dist"][My_reference.City], [My_reference.plong,My_reference.plat], [d.plong,d.plat])[0];} )
             .attr("cy", function(d) {return new_coord(alpha*d["dist"][My_reference.City], [My_reference.plong,My_reference.plat], [d.plong,d.plat])[1];} )
             .attr("r", radius_dynamic)
@@ -196,14 +196,14 @@ function UpdateCitiesFrance(){
 
         g.selectAll(".Cities")
             .filter(function(d){return My_reference.City == d.City;})
-            .transition().duration(300)
+            .transition().duration(transition_time)
             .attr("cx", function(d){console.log("here",d.City); return d.plong;})
             .attr("cy", function(d){return d.plat;})
             .attr("r",radius_main)
             .style("fill",main_color)
 
         g.selectAll(".Static_Cities")
-            .transition().duration(300)
+            .transition().duration(transition_time)
             .attr("r", radius_static)
             .style("fill", static_color);
 
