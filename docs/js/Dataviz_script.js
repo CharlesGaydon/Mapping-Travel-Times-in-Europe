@@ -22,7 +22,7 @@ function mapFranceDisplay(){
     var width = 600,
     height = 500;
 
-    var transition_time = 600;
+    
 
     // Projection
     var svg = d3.select(".mapColumn").append("svg")
@@ -160,7 +160,7 @@ function mapFranceDisplay(){
             .attr("stroke","grey")
             .attr("stroke-width",1)
             .attr("stroke-dasharray",4)
-            .attr("opacity", 0)        
+            .attr("opacity", 1)        
         })
 }
 
@@ -213,9 +213,9 @@ function UpdateCitiesFrance(){
             .attr("x2", My_reference.plong)
             .attr("y2",  My_reference.plat)
             .attr("stroke","grey")
-            .attr("stroke-width",0)
+            .attr("stroke-width",1)
             .attr("stroke-dasharray",4)
-            .attr("opacity", 0)
+            .attr("opacity", 1)
         }
 
 };    
