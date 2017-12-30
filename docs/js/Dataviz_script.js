@@ -215,7 +215,7 @@ function UpdateCitiesFrance(){
             .attr("stroke","grey")
             .attr("stroke-width",1)
             .attr("stroke-dasharray",4)
-            .attr("opacity", 1)
+            .attr("opacity", 0)
         }
 
 };    
