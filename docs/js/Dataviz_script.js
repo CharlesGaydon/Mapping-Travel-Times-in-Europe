@@ -207,7 +207,6 @@ function mapFranceDisplay(){
             .attr("y1", function(d) {return d.plat;})
             .attr("x2", projection([2,48])[0])
             .attr("y2",  projection([2,48])[1])
-            .attr("opacity",0)
 
     // APPEND TOOLTIP
     g.selectAll(".city_label")
@@ -227,7 +226,6 @@ function mapFranceDisplay(){
     //                 .attr("top", function(d){return (d3.event.pageY - 25) + "px";})
 
     })
-
 }
 
 function UpdateCitiesFrance(){
