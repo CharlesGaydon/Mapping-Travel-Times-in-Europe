@@ -3,6 +3,10 @@
 	border: 2px solid black;
 }
 
+.jumbotron {
+     padding: 5em inherit;
+}
+
 .columnInformation > .borderBot{
 	width: 100%;
 	margin-top: 2px;
