@@ -23,4 +23,20 @@ div.tooltip {
     pointer-events: none;           
 }
 
+.iso_circles {
+    position : absolute;
+    z-index : 2;
+    fill : blue;
+    opacity : 0.05;
+    stroke-width : 2px;
+    stroke : black;
+    stroke-opacity : 1;
+}
+
+.dir_line {
+    stroke : orange;
+    stroke-width : 1.5px;
+    stroke-dasharray: 2
+}
+
 

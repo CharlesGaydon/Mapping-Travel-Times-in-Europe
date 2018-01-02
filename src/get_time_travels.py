@@ -15,7 +15,7 @@ Saving travel times for train journey from a list of cities in Europe.
 ### GETTING THE DATA
 key = 'AIzaSyDe_eNdfeT9KSIGFuMzq4nWqilB8J84sk8' #keep it private ! 
 client = googlemaps.Client(key=key)
-file_in = "../docs/data/French-cities.txt"
+file_in = "../docs/data/French-Cities.txt"
 fileout = file_in[:-4]+"_Distance_Matrix.txt"
 fileoutjson = file_in[:-4]+"_Matrix_json.json"
 print("\nLoading cities from : "+file_in)
@@ -65,9 +65,9 @@ for i in range(nb_cities):
 
 
 out = pd.DataFrame(distance_matrix, index=cities, columns=cities)
-"""
-out.to_csv(fileout )
-"""
+
+out.to_csv(fileout)
+
 
 
 jsonresult = dict()

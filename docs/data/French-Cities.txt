@@ -18,5 +18,4 @@ Brest
 Clermont-Ferrand
 Amiens
 Limoges
-Bayonne
 Perpignan
