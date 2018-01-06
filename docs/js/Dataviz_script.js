@@ -16,6 +16,7 @@ France_color = "#97F2F2"; //before : "#7BCDC2"
 
 
 function init() {
+	//mapEuropeDisplay();
     mapFranceDisplay();
     UpdateCitiesFrance();
 }
@@ -101,9 +102,10 @@ function mapFranceDisplay(){
     // var A = [cities[0].plat,cities[0].plong]
     // console.log(JSON.stringify(cities[0]))
     // var B = new_coord(alpha*cities[0]["dist"][cities[1]["City"]], [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
+
     // var B = new_coord(alpha*12060, [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-    // an_hour = 3600*norme([B[0]-A[0],B[1]-A[1]])/12060 //hard codé car l'élément dist est apparemment crée ensuite !
-    an_hour = alpha*3600
+    an_hour = 3600 * alpha//*norme([B[0]-A[0],B[1]-A[1]])/( 12060) hard codé car l'élément dist est apparemment crée ensuite !
+
     console.log("An hour is worth (px) :")
     console.log(an_hour)
     
@@ -203,10 +205,9 @@ function mapFranceDisplay(){
             .attr("class","dir_line")
             .attr("x1", function(d) {return d.plong;})
             .attr("y1", function(d) {return d.plat;})
-            .attr("x2", projection([2,48])[0])
-            .attr("y2",  projection([2,48])[1])
+            .attr("x2", projection([2.35,48.856614])[0])
+            .attr("y2",  projection([2.35,48.856614])[1])
             .attr("opacity",0)
-
     // APPEND TOOLTIP
     g.selectAll(".city_label")
       .data(cities)
@@ -345,7 +346,7 @@ function mapEuropeDisplay(){
     var path = d3.geoPath() // d3.geo.path avec d3 version 3
                  .projection(projection);
     
-    d3.json("data/world.json", function(json) {
+    d3.json("data/europe.json", function(json) {
       console.log(json)
       g.selectAll("path")
         .data(json.features)

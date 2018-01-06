@@ -15,7 +15,7 @@ Grenoble
 Angers
 Dijon
 Brest
-Clermont-Ferrand
+Clermont
 Amiens
 Limoges
 Perpignan

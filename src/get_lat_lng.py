@@ -13,8 +13,8 @@ Saving latitude and longitude of main cities in a .csv file
 
 export_mode = True
 
-file_in = "../docs/data/French-Cities.txt"
-file_out = fileout = file_in[:-4]+"_lat_long_essai.csv"
+file_in = "../docs/data/Europe-Cities.txt"
+file_out = fileout = file_in[:-4]+"_lat_long_Europe.csv"
 cities = pd.read_csv(file_in, header = None).transpose().values
 cities = cities.tolist()[0]
 nb_cities = len(cities)
