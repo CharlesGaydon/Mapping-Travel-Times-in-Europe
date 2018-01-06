@@ -206,8 +206,8 @@ function mapFranceDisplay(){
             .attr("class","dir_line")
             .attr("x1", function(d) {return d.plong;})
             .attr("y1", function(d) {return d.plat;})
-            .attr("x2", projection([2,48])[0])
-            .attr("y2",  projection([2,48])[1])
+            .attr("x2", projection([2.35,48.856614])[0])
+            .attr("y2",  projection([2.35,48.856614])[1])
 
     // APPEND TOOLTIP
     g.selectAll(".city_label")
