@@ -1,6 +1,6 @@
 console.log("START");
 var My_reference = undefined
-var alpha = 0.0089;
+var alpha = 0.0049;
 var an_hour = undefined;
 var Paris = [48.856614,2.35];
 dynamic_color = "#F48B01";
@@ -16,7 +16,7 @@ France_color = "#97F2F2"; //before : "#7BCDC2"
 
 
 function init() {
-	//mapEuropeDisplay();
+    //mapEuropeDisplay();
     mapFranceDisplay();
     UpdateCitiesFrance();
 }
@@ -360,32 +360,208 @@ function new_coord(v_alpha, vecteur_1, vecteur_2){
 
 
 function mapEuropeDisplay(){
-	var width = 700,
-  	height = 580;
+    // Canvas
+    var width = 600,
+    height = 500;
 
-	var svg = d3.select( ".mapColumn" )
-		.append( "svg" )
-	  .attr( "width", width )
-	  .attr( "height", height );
-    
+
+    // Projection
+    var svg = d3.select(".mapColumn").append("svg")
+      .attr("width", width)
+      .attr("height", height);
     var g = svg.append("g");
+    var projection = d3.geoConicConformal().center([29, 53]).scale(700);
+    var path = d3.geoPath().projection(projection);
 
-    var projection = d3.geoConicConformal().center([29, 53]).scale(950);
+    // Define the div for the tooltip
+    // var div = d3.select("body")
+    //     .append("div")   
+    //     .attr("class", "tooltip")               
+    //     .style("opacity", 1)
+    //     .attr("html","test")
+        //.style("background", "lightsteelblue");
+        // TODO : le css n'est pas utilisé pour div.tooltip. Pourquoi ??
 
-    var path = d3.geoPath() // d3.geo.path avec d3 version 3
-                 .projection(projection);
-    
+    // BACKGROUND OF THE MAP
     d3.json("data/europe.json", function(json) {
-      console.log(json)
-      g.selectAll("path")
-        .data(json.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .style("fill", "#ccc")
-        .style("stroke","#fff");
+        g.selectAll("path")
+          .data(json.features)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          .style("fill", France_color);
     });
 
+    d3.csv("data/Europe-Cities_lat_long_Europe.csv", function(cities) {
+        console.log("projecting French cities")
+        cities.forEach(function(d){
+            d.long = parseFloat(d.long)
+            d.lat = parseFloat(d.lat)
+            var projected_city = projection([d.long, d.lat])
+            d.plong = projected_city[0]
+            d.plat = projected_city[1] 
+            d.dist = -1     
+            if(d.City=="Paris"){
+                Paris = {}
+                Paris.plat = d.plat;
+                Paris.plong = d.plong;
+            }          
+        }) 
+        // associer à chaque ville un dictionniare avec pour chaque autre ville ses voisins.
+
+        d3.csv("data/Europe-Cities_Distance_Matrix_Europe.txt",function(distances){
+            for(var city_index = 0 ; city_index<distances.length;city_index++){
+                var the_city = cities[city_index]["City"]
+                for(var dist_index = 0 ; dist_index<distances.length;dist_index++){
+                    if(distances[dist_index][""] == the_city){
+                        delete distances[dist_index][""]
+                        for(var key in distances[dist_index]){
+                           distances[dist_index][key] = parseFloat(distances[dist_index][key])
+                           if(isNaN(distances[dist_index][key])){
+                            distances[dist_index][key] = undefined
+                           }
+                        }
+                        cities[city_index]["dist"] = distances[dist_index]
+                        break
+                    }
+                }
+            }
+        })
+        console.log(JSON.stringify(cities[0]["dist"]))
+        console.log(cities)
+        console.log(Object.keys(cities[0]))
+        // Tous les import de données initiaux se font ici.
+        var g = d3.select("g")
+
+    // APPEND ISOCHRONES CIRCLES
+
+    // var A = [cities[0].plat,cities[0].plong]
+    // console.log(JSON.stringify(cities[0]))
+    // var B = new_coord(alpha*cities[0]["dist"][cities[1]["City"]], [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
+
+    // var B = new_coord(alpha*12060, [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
+    an_hour = 3600 * alpha//*norme([B[0]-A[0],B[1]-A[1]])/( 12060) hard codé car l'élément dist est apparemment crée ensuite !
+
+    console.log("An hour is worth (px) :")
+    console.log(an_hour)
+    
+    var isoH  = []
+    d3.range(12).forEach(function(d){
+        isoH.push({"NB_hour":d+1,"label": String(d+1) + "h", "r" : (d+1)*an_hour})
+    })
+    isoH = isoH.reverse()
+
+    g.selectAll(".iso_circles")
+      .data(isoH)
+      .enter()
+      .append("circle")
+        .attr("class","iso_circles")
+        .attr("r",function(d){
+            return d.r;
+        })
+        .attr("cx",projection([48.856614,2.35])[0])
+        .attr("cy",projection([48.856614,2.35])[1])
+        // .attr("position","absolute")
+        // .attr("z-index", 2)
+        .attr("opacity",0)
+
+    
+     // STATIC CITIES
+        g.selectAll('.Static_Cities')
+                .data(cities)
+                .enter()
+                .append('circle')
+                    .attr("class","Static_Cities")
+                    .attr("cx", function(d) {return d.plong;})
+                    .attr("cy", function(d) { return d.plat;})
+                    .attr("position","absolute")
+                    .attr("z-index", 4)
+                    //.attr("r", 3.5) //pas de rayon initialement !
+                    .style("fill", static_color)
+                    .style("opacity",0.8)
+                    .on("click",function(d){
+                        if(typeof My_reference !== 'undefined'){
+                            if(My_reference.City !=d.City){
+                                My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                                console.log(My_reference)
+                            }else{
+                                My_reference = undefined;
+                            }
+                        }else{
+                            My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            console.log("Ref :"+ My_reference.City)
+                        }
+                        UpdateCitiesFrance();
+                    });
+        // DYNAMIC CITIES
+        g.selectAll('.Cities')
+            .data(cities)
+            .enter()
+            .append('circle')
+                .attr("class","Cities")
+                .attr("cx", function(d) {return d.plong;})
+                .attr("cy", function(d) { return d.plat;})
+                .attr("r", radius_dynamic)
+                .style("fill", dynamic_color)
+                .attr("position","absolute")
+                .attr("z-index", 4)
+                // .on("mouseover", function(d) {
+                //     div.transition()
+                //         .duration(200)
+                //         .style("opacity",0.9)
+                //     div.html(d.City) //"<br/>"   
+                //         .style("left", (d3.event.pageX +5) + "px")     
+                //         .style("top", (d3.event.pageY - 25) + "px");
+                // })
+                // .on("mouseout", function(d) {       
+                //     div.transition()        
+                //         .duration(100)      
+                //         // .style("opacity", 0);   
+                // })
+                .on("click",function(d){
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            console.log(My_reference)
+                        }else{
+                            My_reference = undefined;
+                        }
+                    }else{
+                        My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                        console.log("Ref :"+ My_reference.City)
+                    }
+                    UpdateCitiesFrance();
+                });
+    
+    // INITIALIZE TRANSPARENT LINES
+    g.selectAll("line")
+        .data(cities)
+        .enter()
+        .append("line")
+            .attr("class","dir_line")
+            .attr("x1", function(d) {return d.plong;})
+            .attr("y1", function(d) {return d.plat;})
+            .attr("x2", projection([2.35,48.856614])[0])
+            .attr("y2",  projection([2.35,48.856614])[1])
+            .attr("opacity",0)
+    // APPEND TOOLTIP
+    g.selectAll(".city_label")
+      .data(cities)
+      .enter()
+      .append("text")
+          .attr("class", "city_label")
+          .attr("x", function(d) { return d.plong; })
+          .attr("y", function(d) { return d.plat +10; })
+          .attr("font-size", "8px")
+          .text(function(d) { return d.City;});
+
+
+
+    // div.data(cities).attr("html",function(d){return d.City;})
+    //                 .attr("left",function(d){return (d3.event.pageX +5) + "px";}) 
+    //                 .attr("top", function(d){return (d3.event.pageY - 25) + "px";})
+
+    })
 }
 
 init();
