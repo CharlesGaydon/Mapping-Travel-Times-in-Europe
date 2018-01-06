@@ -1,3 +1,7 @@
+body{
+    padding-top: 65px;
+}
+
 .columnInformation{
 	height: 100%;
 	border: 2px solid black;
@@ -8,10 +12,53 @@
 }
 
 .columnInformation > .borderBot{
-	width: 100%;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	border-bottom: 1px solid black;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid black;
+}
+
+.columnInformation > .borderBot > img{
+    width: 100%;
+}
+
+.columnInformation > .test{
+    background-color: red;
+}
+
+.test{
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.mastercard{
+    border: 1px solid grey;
+    text-align: center;
+    width: 20%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card {
+    width: 90%;
+    border: 1px solid grey;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card > img {
+    max-height: 150px;
+    width: 100%;
+}
+
+.test > .description {
+    font-size: 10px;
 }
 
 div.tooltip {   
