@@ -125,9 +125,26 @@ function mapFranceDisplay(){
         })
         .attr("cx",projection([48.856614,2.35])[0])
         .attr("cy",projection([48.856614,2.35])[1])
-        // .attr("position","absolute")
-        // .attr("z-index", 2)
         .attr("opacity",0)
+        .on("mouseover", function(d){
+            d3.select("#iso_label"+d.NB_hour).attr("opacity",1)
+        })
+        .on("mouseout", function(d){
+            d3.select("#iso_label"+d.NB_hour).attr("opacity",0)
+        })
+
+
+    g.selectAll(".iso_label")
+          .data(isoH)
+          .enter()
+          .append("text")
+              .attr("class", "iso_label")
+              .attr("id",function(d){return "iso_label"+d.NB_hour;})
+              .attr("x", projection([48.856614,2.35])[0])
+              .attr("y", function(d) {var y = projection([48.856614,2.35])[1]; return y; }) //faux mais osef
+              .attr("font-size", "8px")
+              .attr("opacity",0)
+              .text(function(d) {return d.label;});
 
     
      // STATIC CITIES
@@ -248,22 +265,34 @@ function UpdateCitiesFrance(){
             .attr("r", 0)
 
         g.selectAll(".iso_circles")
-            .attr("class","iso_circles")
             .attr("cx",Paris.plong)
             .attr("cy",Paris.plat)
             .attr("opacity",function(d){
                 return 0.00;
             })
+        g.selectAll(".iso_label")
+            .attr("x",Paris.plong)
+            .attr("y",Paris.plat)
+            .attr("opacity",0)
     
     }else{
 
         g.selectAll(".iso_circles")
-            .attr("class","iso_circles")
             .transition().duration(function(d){return move_time*2/d.NB_hour})
             .attr("cx",My_reference.plong)
             .attr("cy",My_reference.plat)
             .attr("opacity",function(d){
                 return 1 - d.NB_hour/12
+            })
+            // COULD BE MORE PRECISE : sens de la souris
+        g.selectAll(".iso_label")
+            .attr("y",My_reference.plat)
+            .attr("x",function(d){
+                if(My_reference.plong<Paris.plong){
+                    return My_reference.plong + d.r;
+                }else{
+                    return My_reference.plong - d.r;
+                }
             })
         // DYNAMIC CITIES
         g.selectAll(".Cities").filter(function(d){return My_reference.City != d.City })
