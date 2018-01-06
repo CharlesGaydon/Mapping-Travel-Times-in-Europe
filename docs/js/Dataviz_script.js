@@ -1,6 +1,6 @@
 console.log("START");
 var My_reference = undefined
-var alpha = 0.0089;
+var alpha = 0.0049;
 var an_hour = undefined;
 var Paris = [48.856614,2.35];
 dynamic_color = "#F48B01";
@@ -341,7 +341,7 @@ function mapEuropeDisplay(){
       .attr("width", width)
       .attr("height", height);
     var g = svg.append("g");
-    var projection = d3.geoConicConformal().center([29, 53]).scale(950);
+    var projection = d3.geoConicConformal().center([29, 53]).scale(700);
     var path = d3.geoPath().projection(projection);
 
     // Define the div for the tooltip
