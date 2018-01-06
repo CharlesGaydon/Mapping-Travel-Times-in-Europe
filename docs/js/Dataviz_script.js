@@ -102,7 +102,7 @@ function mapFranceDisplay(){
     // console.log(JSON.stringify(cities[0]))
     // var B = new_coord(alpha*cities[0]["dist"][cities[1]["City"]], [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
     var B = new_coord(alpha*12060, [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-    an_hour = 3600*norme([B[0]-A[0],B[1]-A[1]])/12060 //hard codé car l'élément dist est apparemment crée ensuite !
+    an_hour = 3600*norme([B[0]-A[0],B[1]-A[1]])/(alpha * 12060) //hard codé car l'élément dist est apparemment crée ensuite !
 
     console.log("An hour is worth (px) :")
     console.log(an_hour)
