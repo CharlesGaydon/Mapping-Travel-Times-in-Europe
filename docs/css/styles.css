@@ -1,3 +1,9 @@
+body {
+  padding-top: 65px;
+  padding-bottom: 0px;
+}
+
+
 .columnInformation{
 	height: 100%;
 	border: 2px solid black;
@@ -13,6 +19,14 @@
 	margin-bottom: 2px;
 	border-bottom: 1px solid black;
 }
+
+.columnInformation > .borderBot > img{
+    width: 100%;
+/*    margin-top: 2px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid black;*/
+}
+
 
 div.tooltip {   
     position: absolute;         
@@ -30,9 +44,8 @@ div.tooltip {
 .iso_circles {
     position : absolute;
     z-index : 2;
-    fill : blue;
-    opacity : 0.05;
-    stroke-width : 2px;
+    fill : transparent;
+    stroke-width : 0.5px;
     stroke : black;
     stroke-opacity : 1;
 }

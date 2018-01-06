@@ -2,7 +2,7 @@ console.log("START");
 var My_reference = undefined
 var alpha = 0.0089;
 var an_hour = undefined;
-var Paris = undefined;
+var Paris = [48.856614,2.35];
 dynamic_color = "#F48B01";
 static_color = "#7171D7";
 main_color = "#ED0109";
@@ -98,17 +98,17 @@ function mapFranceDisplay(){
 
     // APPEND ISOCHRONES CIRCLES
 
-    var A = [cities[0].plat,cities[0].plong]
+    // var A = [cities[0].plat,cities[0].plong]
     // console.log(JSON.stringify(cities[0]))
     // var B = new_coord(alpha*cities[0]["dist"][cities[1]["City"]], [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-    var B = new_coord(alpha*12060, [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-    an_hour = 3600*norme([B[0]-A[0],B[1]-A[1]])/12060 //hard codé car l'élément dist est apparemment crée ensuite !
-
+    // var B = new_coord(alpha*12060, [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
+    // an_hour = 3600*norme([B[0]-A[0],B[1]-A[1]])/12060 //hard codé car l'élément dist est apparemment crée ensuite !
+    an_hour = alpha*3600
     console.log("An hour is worth (px) :")
     console.log(an_hour)
     
     var isoH  = []
-    d3.range(6).forEach(function(d){
+    d3.range(12).forEach(function(d){
         isoH.push({"NB_hour":d+1,"label": String(d+1) + "h", "r" : (d+1)*an_hour})
     })
     isoH = isoH.reverse()
@@ -121,13 +121,11 @@ function mapFranceDisplay(){
         .attr("r",function(d){
             return d.r;
         })
-        .attr("cx",cities[0].plong)
-        .attr("cy",cities[0].plat)
+        .attr("cx",projection([48.856614,2.35])[0])
+        .attr("cy",projection([48.856614,2.35])[1])
         // .attr("position","absolute")
         // .attr("z-index", 2)
-        .attr("opacity",function(d){
-            return 0.05;
-        })
+        .attr("opacity",0)
 
     
      // STATIC CITIES
@@ -207,6 +205,7 @@ function mapFranceDisplay(){
             .attr("y1", function(d) {return d.plat;})
             .attr("x2", projection([2,48])[0])
             .attr("y2",  projection([2,48])[1])
+            .attr("opacity",0)
 
     // APPEND TOOLTIP
     g.selectAll(".city_label")
@@ -214,8 +213,8 @@ function mapFranceDisplay(){
       .enter()
       .append("text")
           .attr("class", "city_label")
-          .attr("x", function(d) { return d.plong + 5; })
-          .attr("y", function(d) { return d.plat +5; })
+          .attr("x", function(d) { return d.plong; })
+          .attr("y", function(d) { return d.plat +10; })
           .attr("font-size", "8px")
           .text(function(d) { return d.City;});
 
@@ -249,8 +248,11 @@ function UpdateCitiesFrance(){
 
         g.selectAll(".iso_circles")
             .attr("class","iso_circles")
-        .attr("cx",Paris.plong)
-        .attr("cy",Paris.plat)
+            .attr("cx",Paris.plong)
+            .attr("cy",Paris.plat)
+            .attr("opacity",function(d){
+                return 0.00;
+            })
     
     }else{
 
@@ -259,6 +261,9 @@ function UpdateCitiesFrance(){
             .transition().duration(function(d){return move_time*2/d.NB_hour})
             .attr("cx",My_reference.plong)
             .attr("cy",My_reference.plat)
+            .attr("opacity",function(d){
+                return 1 - d.NB_hour/12
+            })
         // DYNAMIC CITIES
         g.selectAll(".Cities").filter(function(d){return My_reference.City != d.City })
             .transition().duration(move_time)
