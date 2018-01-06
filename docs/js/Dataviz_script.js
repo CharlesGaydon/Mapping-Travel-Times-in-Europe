@@ -16,9 +16,9 @@ France_color = "#97F2F2"; //before : "#7BCDC2"
 
 
 function init() {
-	mapEuropeDisplay();
-    //mapFranceDisplay();
-    //UpdateCitiesFrance();
+	//mapEuropeDisplay();
+    mapFranceDisplay();
+    UpdateCitiesFrance();
 }
 
 
@@ -341,7 +341,7 @@ function mapEuropeDisplay(){
     var path = d3.geoPath() // d3.geo.path avec d3 version 3
                  .projection(projection);
     
-    d3.json("data/europe_essai.json", function(json) {
+    d3.json("data/europe.json", function(json) {
       console.log(json)
       g.selectAll("path")
         .data(json.features)
