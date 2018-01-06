@@ -17,7 +17,7 @@ France_color = "#97F2F2"; //before : "#7BCDC2"
 
 function init() {
     //mapEuropeDisplay();
-    mapEuropeDisplay();
+    mapFranceDisplay();
     UpdateCitiesFrance();
 }
 
