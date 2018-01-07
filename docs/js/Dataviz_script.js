@@ -188,7 +188,24 @@ function mapFranceDisplay(){
                             console.log("Ref :"+ My_reference.City)
                         }
                         UpdateCitiesFrance();
-                    });
+                    })
+                .on("mouseover",function(d){
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            //My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
+                            console.log(My_reference)
+                        }else{
+                            //My_reference = undefined;
+                            changeInformationCityDestination("undefined", "undefined.jpg");
+                        }
+                    }else{
+                        //My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
+                        console.log("Ref :"+ My_reference.City)
+                    }
+                    UpdateCitiesFrance();
+                });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
             .data(cities)
@@ -226,7 +243,24 @@ function mapFranceDisplay(){
                         }
                     }else{
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
-                            changeInformationCityOrigin(d.City, d.City + ".jpg");
+                        changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                        console.log("Ref :"+ My_reference.City)
+                    }
+                    UpdateCitiesFrance();
+                })
+                .on("mouseover",function(d){
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            //My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
+                            console.log(My_reference)
+                        }else{
+                            //My_reference = undefined;
+                            changeInformationCityDestination("undefined", "undefined.jpg");
+                        }
+                    }else{
+                        //My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
                         console.log("Ref :"+ My_reference.City)
                     }
                     UpdateCitiesFrance();
