@@ -173,16 +173,18 @@ function mapFranceDisplay(){
                     .style("fill", static_color)
                     .style("opacity",0.8)
                     .on("click",function(d){
-                        changeInformationCityOrigin(d.City, d.City + ".jpg");
                         if(typeof My_reference !== 'undefined'){
                             if(My_reference.City !=d.City){
                                 My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                                changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
                                 console.log(My_reference);
                             }else{
                                 My_reference = undefined;
+                                changeInformationCityOrigin("undefined", My_reference + ".jpg");
                             }
                         }else{
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
                             console.log("Ref :"+ My_reference.City)
                         }
                         UpdateCitiesFrance();
@@ -213,16 +215,18 @@ function mapFranceDisplay(){
                 //         // .style("opacity", 0);   
                 // })
                 .on("click",function(d){
-                    changeInformationCityOrigin(d.City, d.City + ".jpg");
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
                             console.log(My_reference)
                         }else{
                             My_reference = undefined;
+                            changeInformationCityOrigin("undefined", My_reference + ".jpg");
                         }
                     }else{
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityOrigin(d.City, d.City + ".jpg");
                         console.log("Ref :"+ My_reference.City)
                     }
                     UpdateCitiesFrance();
@@ -581,8 +585,5 @@ function changeInformationCityDestination(name, imgName){
 function changeInformationTravel(distances){
     document.getElementById("distances").textContent = distances;
 }
-
-changeInformationCityOrigin("Dijon", "Dijon.jpg");
-changeInformationCityDestination("Limoges", "Limoges.jpg");
 
 init();
