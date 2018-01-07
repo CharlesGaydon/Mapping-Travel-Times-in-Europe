@@ -8,8 +8,8 @@ static_color = "#7171D7";
 main_color = "#ED0109";
 
 radius_main = 6.5;
-radius_dynamic = 2.8; 
-radius_static = 3.5;
+radius_dynamic = 3.5; 
+radius_static = 4.5;
 
 move_time = 500
 France_color = "#97F2F2"; //before : "#7BCDC2"
@@ -147,6 +147,18 @@ function mapFranceDisplay(){
               .text(function(d) {return d.label;});
 
     
+    // INITIALIZE TRANSPARENT LINES
+    g.selectAll("line")
+        .data(cities)
+        .enter()
+        .append("line")
+            .attr("class","dir_line")
+            .attr("x1", function(d) {return d.plong;})
+            .attr("y1", function(d) {return d.plat;})
+            .attr("x2", projection([2.35,48.856614])[0])
+            .attr("y2",  projection([2.35,48.856614])[1])
+            .attr("opacity",0)
+
      // STATIC CITIES
         g.selectAll('.Static_Cities')
                 .data(cities)
@@ -215,18 +227,7 @@ function mapFranceDisplay(){
                     }
                     UpdateCitiesFrance();
                 });
-    
-    // INITIALIZE TRANSPARENT LINES
-    g.selectAll("line")
-        .data(cities)
-        .enter()
-        .append("line")
-            .attr("class","dir_line")
-            .attr("x1", function(d) {return d.plong;})
-            .attr("y1", function(d) {return d.plat;})
-            .attr("x2", projection([2.35,48.856614])[0])
-            .attr("y2",  projection([2.35,48.856614])[1])
-            .attr("opacity",0)
+
     // APPEND TOOLTIP
     g.selectAll(".city_label")
       .data(cities)
@@ -253,7 +254,7 @@ function UpdateCitiesFrance(){
 
     // DYNAMIC LINKS
     if (typeof My_reference=='undefined'){
-        g.selectAll("line")
+        g.selectAll(".dir_line")
             .attr("opacity",0)
         g.selectAll(".Cities")
             .transition().duration(move_time)
@@ -317,9 +318,10 @@ function UpdateCitiesFrance(){
             .attr("r", radius_static)
             .style("fill", static_color);
 
-        g.selectAll("line").filter(function(d){return My_reference.City != d.City })
+        g.selectAll(".dir_line").filter(function(d){return My_reference.City != d.City })
             // .attr("x1", function(d) {return My_reference.plong;})
             // .attr("y1", function(d) {return My_reference.plat;})
+            .transition().duration(move_time)
             .attr("x1", function(d) {return d.plong;})
             .attr("y1", function(d) {return d.plat;})
             .attr("x2", function(d) {
