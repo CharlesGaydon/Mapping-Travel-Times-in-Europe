@@ -184,7 +184,7 @@ function mapFranceDisplay(){
                             }else{
                                 My_reference = undefined;
                                 changeInformationCityOrigin("undefined", My_reference + ".jpg");
-                                changeInformationTravel("nope");
+                                changeInformationTravel("undefined");
                             }
                         }else{
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
@@ -205,12 +205,12 @@ function mapFranceDisplay(){
                         }else{
                             My_destination = undefined;
                             changeInformationCityDestination("undefined", "undefined.jpg");
-                            changeInformationTravel("nope");
+                            changeInformationTravel("undefined");
                         }
                     }else{
                         My_destination = {City :d.City, plong : d.plong, plat : d.plat};
                         changeInformationCityDestination(d.City, d.City + ".jpg");
-                        changeInformationTravel("nope");
+                        changeInformationTravel("undefined");
                     }
                     UpdateCitiesFrance();
                 });
@@ -250,7 +250,7 @@ function mapFranceDisplay(){
                         }else{
                             My_reference = undefined;
                             changeInformationCityOrigin("undefined", My_reference + ".jpg");
-                            changeInformationTravel("nope");
+                            changeInformationTravel("undefined");
                         }
                     }else{
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
@@ -271,12 +271,12 @@ function mapFranceDisplay(){
                         }else{
                             My_destination = undefined;
                             changeInformationCityDestination("undefined", "undefined.jpg");
-                            changeInformationTravel("nope");
+                            changeInformationTravel("undefined");
                         }
                     }else{
                         My_destination = {City :d.City, plong : d.plong, plat : d.plat};
                         changeInformationCityDestination(d.City, d.City + ".jpg");
-                        changeInformationTravel("nope");
+                        changeInformationTravel("undefined");
                     }
                     UpdateCitiesFrance();
                 });
@@ -636,16 +636,13 @@ function changeInformationTravel(time){
 }
 
 function convertSecondToHours(second){
-    minut = second / 60;
+    minut = Math.trunc(second / 60);
     hour = Math.trunc(minut / 60);
     minut = minut % 60;
-    return hour + ":"+ minut;
+    return hour + ":" + minut;
 }
 
 function getTimeBetweenTwoCities(My_reference, My_destination, cities){
-    console.log(My_reference);
-    console.log(My_destination);
-
     var i = 0;
     var isFound = 0;
     while(i < cities.length && isFound == false){
