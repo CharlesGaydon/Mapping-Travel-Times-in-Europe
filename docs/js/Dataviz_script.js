@@ -639,19 +639,21 @@ function convertSecondToHours(second){
     minut = Math.trunc(second / 60);
     hour = Math.trunc(minut / 60);
     minut = minut % 60;
-    return hour + ":" + minut;
+    if(minut < 9)
+        minut = "0" + minut;
+    return hour + "h " + minut + "m";
 }
 
 function getTimeBetweenTwoCities(My_reference, My_destination, cities){
     var i = 0;
     var isFound = 0;
     while(i < cities.length && isFound == false){
-        if (cities[i].City == My_reference.City) {
-            var timeHours = convertSecondToHours(cities[i].dist[My_destination.City])
+        if (cities[i].City == My_destination.City) {
+            var timeHours = convertSecondToHours(cities[i].dist[My_reference.City])
             changeInformationTravel(timeHours);
             isFound = true;
         }
-        i++;  
+        i++;
     }
 }
 
