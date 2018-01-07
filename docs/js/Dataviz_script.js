@@ -18,7 +18,7 @@ France_color = "#97F2F2"; //before : "#7BCDC2"
 function init() {
     //mapEuropeDisplay();
     mapFranceDisplay();
-    UpdateCitiesFrance();
+    UpdateCities();
 }
 
 
@@ -155,7 +155,7 @@ function mapFranceDisplay(){
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                             console.log("Ref :"+ My_reference.City)
                         }
-                        UpdateCitiesFrance();
+                        UpdateCities();
                     });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
@@ -194,7 +194,7 @@ function mapFranceDisplay(){
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                         console.log("Ref :"+ My_reference.City)
                     }
-                    UpdateCitiesFrance();
+                    UpdateCities();
                 });
     
     // INITIALIZE TRANSPARENT LINES
@@ -228,7 +228,7 @@ function mapFranceDisplay(){
     })
 }
 
-function UpdateCitiesFrance(){
+function UpdateCities(){
     // My_reference = {City: "Grenoble", plong: 257.1682882326301, plat: 165.49279245973003}
     g = d3.select("g")
 
@@ -462,7 +462,7 @@ function mapEuropeDisplay(){
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                             console.log("Ref :"+ My_reference.City)
                         }
-                        UpdateCitiesFrance();
+                        UpdateCities();
                     });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
@@ -501,7 +501,7 @@ function mapEuropeDisplay(){
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                         console.log("Ref :"+ My_reference.City)
                     }
-                    UpdateCitiesFrance();
+                    UpdateCities();
                 });
     
     // INITIALIZE TRANSPARENT LINES
