@@ -57,7 +57,7 @@
 			<h1>Mapping Travel Times in Europe</h1>
 			<p>Petite description du projet</p> 
 		</div> -->
-		<div class="container test" width=1500>
+		<div class="box">
 
 			<div class="row" >
 
@@ -75,7 +75,7 @@
 					</div>
 				</div> -->
 
-				<div class="col-sm-8 mapColumn">
+				<div class="mapColumn">
 				</div>
 <!--
 				<div class="col-sm-2 jumbotron columnInformation">
@@ -92,25 +92,25 @@
 -->
 				<div class="mastercard test">
 					
-					<div class="card">
-						<h4>Paris</h4>	
-						<img src="img/City_pic/France/Paris.jpg" alt="origin">
+					<div class="card city">
+						<h4 id="originName">Paris</h4>	
+						<img id="originImg" src="img/City_pic/France/Paris.jpg" alt="origin">
 					</div>
 
-					<div class="card">
-						<p>5h40</p>
-						<p>500km</p>	
+					<div class="card travel">
+						<img id="trainImg" src="img/Train.png" alt="train">
+						<p id="distances">5h40</p>
 					</div>
 
-					<div class="card">
-						<h4>Lyon</h4>	
-						<img src="img/City_pic/France/Lyon.jpg" alt="destination">
+					<div class="card city">
+						<h4 id="destinationName">Lyon</h4>	
+						<img id="destinationImg" src="img/City_pic/France/Lyon.jpg" alt="destination">
 					</div>
 				</div>
 
 			</div>
 		</div>
-		
+
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
@@ -124,3 +124,4 @@
 	<script src="js/Dataviz_script.js"></script>
 
 </html>
+

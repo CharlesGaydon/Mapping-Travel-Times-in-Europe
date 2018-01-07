@@ -1,3 +1,4 @@
+
 body {
   padding-top: 65px;
   padding-bottom: 0px;
@@ -100,3 +101,110 @@ div.tooltip {
 }
 
 
+=======
+body {
+  padding-top: 65px;
+  padding-bottom: 0px;
+}
+
+.mapColumn{
+
+}
+.columnInformation{
+	height: 100%;
+	border: 2px solid black;
+}
+
+.jumbotron {
+     padding: 5em inherit;
+}
+
+.columnInformation > .borderBot{
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid black;
+}
+
+.columnInformation > .borderBot > img{
+    width: 100%;
+}
+
+.columnInformation > .test{
+    background-color: red;
+}
+
+.box{
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.mastercard{
+    border: 1px solid grey;
+    text-align: center;
+    width: 20%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card {
+    width: 90%;
+    border: 1px solid grey;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.city > img {
+    max-height: 150px;
+    width: 100%;
+}
+
+.travel{
+    display: flex;
+}
+.travel > img {
+    height: 75px;
+    width: 40px;
+}
+
+.test > .description {
+    font-size: 10px;
+}
+
+.columnInformation > .borderBot > img{
+    width: 100%;
+}
+
+
+div.tooltip {   
+    position: absolute;         
+    text-align: center;         
+    width: 60px;                    
+    height: 28px;                   
+    padding: 2px;               
+    font: 12px sans-serif;      
+    background: lightsteelblue; 
+    border: 0.5px;        
+    border-radius: 8px;         
+    pointer-events: none;           
+}
+
+.iso_circles {
+    position : absolute;
+    z-index : 2;
+    fill : transparent;
+    stroke-width : 0.5px;
+    stroke : black;
+    stroke-opacity : 1;
+}
+
+.dir_line {
+    stroke : orange;
+    stroke-width : 1.5px;
+    stroke-dasharray: 2
+}
