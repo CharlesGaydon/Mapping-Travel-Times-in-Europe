@@ -144,10 +144,11 @@ function mapFranceDisplay(){
                     .style("fill", static_color)
                     .style("opacity",0.8)
                     .on("click",function(d){
+                        changeInformationCityOrigin(d.City, d.City + ".jpg");
                         if(typeof My_reference !== 'undefined'){
                             if(My_reference.City !=d.City){
                                 My_reference = {City :d.City, plong : d.plong, plat : d.plat};
-                                console.log(My_reference)
+                                console.log(My_reference);
                             }else{
                                 My_reference = undefined;
                             }
@@ -183,6 +184,7 @@ function mapFranceDisplay(){
                 //         // .style("opacity", 0);   
                 // })
                 .on("click",function(d){
+                    changeInformationCityOrigin(d.City, d.City + ".jpg");
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
@@ -358,5 +360,22 @@ function mapEuropeDisplay(){
     });
 
 }
+
+function changeInformationCityOrigin(name, imgName){
+    document.getElementById("originName").textContent = name;
+    var originImg = document.getElementById("originImg").src = "../img/City_pic/France/" + imgName;
+}
+
+function changeInformationCityDestination(name, imgName){
+    document.getElementById("destinationName").textContent = name;
+    var originImg = document.getElementById("destinationImg").src = "../img/City_pic/France/" + imgName;
+}
+
+function changeInformationTravel(distances){
+    document.getElementById("distances").textContent = distances;
+}
+
+changeInformationCityOrigin("Dijon", "Dijon.jpg");
+changeInformationCityDestination("Limoges", "Limoges.jpg");
 
 init();

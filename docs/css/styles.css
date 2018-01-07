@@ -3,7 +3,9 @@ body {
   padding-bottom: 0px;
 }
 
+.mapColumn{
 
+}
 .columnInformation{
 	height: 100%;
 	border: 2px solid black;
@@ -28,8 +30,7 @@ body {
     background-color: red;
 }
 
-.test{
-    text-align: center;
+.box{
     margin: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -54,9 +55,17 @@ body {
     transition: 0.3s;
 }
 
-.card > img {
+.city > img {
     max-height: 150px;
     width: 100%;
+}
+
+.travel{
+    display: flex;
+}
+.travel > img {
+    height: 75px;
+    width: 40px;
 }
 
 .test > .description {
@@ -65,9 +74,6 @@ body {
 
 .columnInformation > .borderBot > img{
     width: 100%;
-/*    margin-top: 2px;
-    margin-bottom: 2px;
-    border-bottom: 1px solid black;*/
 }
 
 
