@@ -1,5 +1,6 @@
 console.log("START");
 var My_reference = undefined
+var My_destination = undefined
 var alpha = 0.0049;
 var mouse_position = undefined;
 var an_hour = undefined;
@@ -15,7 +16,6 @@ radius_static = 5.5;
 
 move_time = 500
 France_color = "#97F2F2"; //before : "#7BCDC2"
-
 
 function init() {
     mouseListener();
@@ -221,20 +221,47 @@ function mapFranceDisplay(){
                     .style("fill", static_color)
                     .style("opacity",0.8)
                     .on("click",function(d){
-                        changeInformationCityOrigin(d.City, d.City + ".jpg");
                         if(typeof My_reference !== 'undefined'){
                             if(My_reference.City !=d.City){
                                 My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                                changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                                if(typeof My_destination !== 'undefined')
+                                    getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                                
                                 console.log(My_reference);
                             }else{
                                 My_reference = undefined;
+                                changeInformationCityOrigin("undefined", My_reference + ".jpg");
+                                changeInformationTravel("undefined");
                             }
                         }else{
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                            if(typeof My_destination !== 'undefined')
+                                getTimeBetweenTwoCities(My_reference, My_destination, cities);
                             console.log("Ref :"+ My_reference.City)
                         }
                         UpdateCitiesFrance();
-                    });
+                    })
+                .on("mouseover",function(d){
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
+                            //changeInformationTravel("ca change");
+                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                        }else{
+                            My_destination = undefined;
+                            changeInformationCityDestination("undefined", "undefined.jpg");
+                            changeInformationTravel("undefined");
+                        }
+                    }else{
+                        My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                        changeInformationCityDestination(d.City, d.City + ".jpg");
+                        changeInformationTravel("undefined");
+                    }
+                    UpdateCitiesFrance();
+                });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
             .data(cities)
@@ -248,17 +275,43 @@ function mapFranceDisplay(){
                 .attr("position","absolute")
                 .attr("z-index", 4)
                 .on("click",function(d){
-                    changeInformationCityOrigin(d.City, d.City + ".jpg");
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                            if(typeof My_destination !== 'undefined')
+                                getTimeBetweenTwoCities(My_reference, My_destination, cities);
                             console.log(My_reference)
                         }else{
                             My_reference = undefined;
+                            changeInformationCityOrigin("undefined", My_reference + ".jpg");
+                            changeInformationTravel("undefined");
                         }
                     }else{
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                        changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                        if(typeof My_destination !== 'undefined')
+                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
                         console.log("Ref :"+ My_reference.City)
+                    }
+                    UpdateCitiesFrance();
+                })
+                .on("mouseover",function(d){
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
+                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                            
+                        }else{
+                            My_destination = undefined;
+                            changeInformationCityDestination("undefined", "undefined.jpg");
+                            changeInformationTravel("undefined");
+                        }
+                    }else{
+                        My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                        changeInformationCityDestination(d.City, d.City + ".jpg");
+                        changeInformationTravel("undefined");
                     }
                     UpdateCitiesFrance();
                 });
@@ -331,7 +384,7 @@ function UpdateCitiesFrance(){
             })
             // .transition().duration()
             .attr("r", function(d){
-                return (d.NB_hour+1)*3600*alpha;
+                return (d.NB_hour)*3600*alpha;
             })
 
             
@@ -651,9 +704,19 @@ function changeInformationCityDestination(name, imgName){
     var originImg = document.getElementById("destinationImg").src = "./img/City_pic/France/" + imgName;
 }
 
-function changeInformationTravel(distances){
-    document.getElementById("distances").textContent = distances;
+function changeInformationTravel(time){
+    document.getElementById("time").textContent = time;
 }
+
+function convertSecondToHours(second){
+    minut = Math.trunc(second / 60);
+    hour = Math.trunc(minut / 60);
+    minut = minut % 60;
+    if(minut < 9)
+        minut = "0" + minut;
+    return hour + "h " + minut + "m";
+}
+
 
 function mouseListener(){
 
@@ -682,5 +745,18 @@ function mouseListener(){
 changeInformationCityOrigin("Dijon", "Dijon.jpg");
 changeInformationCityDestination("Limoges", "Limoges.jpg");
 
+
+function getTimeBetweenTwoCities(My_reference, My_destination, cities){
+    var i = 0;
+    var isFound = 0;
+    while(i < cities.length && isFound == false){
+        if (cities[i].City == My_destination.City) {
+            var timeHours = convertSecondToHours(cities[i].dist[My_reference.City])
+            changeInformationTravel(timeHours);
+            isFound = true;
+        }
+        i++;
+    }
+}
 
 init();

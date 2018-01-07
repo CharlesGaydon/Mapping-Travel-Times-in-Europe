@@ -1,0 +1,19 @@
+Abstract
+Trip durations between two geographical points are rarely proportional to the geographic distances one can see on a standard map. As a result, the visualisation of temporal relationships between objects on a map could be invaluable, to e.g. a tourist wanting to visit another city without travelling too long. We hereby propose some designs suggestions for such a map. We conceive two different tempographic maps, of France and Europe respectively, in which distances between main cities can be distorted to make visible the train trip durations between them. Those visualisations are a strong tool for the user because he now see his potentials trips according to the actual time he will spend in.
+
+Introduction
+
+Since the first so-called “bullet train” in 1964 in Japan, high-speed trains spread throughout the world and deeply changed the conception we have of space. Destinations that were virtually inaccessible previously stand now reachable in a couple of hours. The world, and within it Europe, is said to be “shrinking” as trip durations shorten. But it is common knowledge that trip times are not always, if not never, proportional to the distance travelled. This is due to an uneven rail network in term of speed and frequency, and to various geographical constraints (e.g. a lake to circumvent). As a result, one can observe that it is hard with common static maps to really evaluate how fast a city can be accessed from another one. A map where the time component of train trips is visualised could thus be invaluable. As we no one travels by feet, one perceives the time whereas distance do not matter anymore. A use case could be: a Canadian globe-trotter wants to establish for one year in a major European capital city, and search for a place from which many other important cities could be accessible easily. This tourist do not care about the distance he will travel, he just want to know how long it will take.
+
+
+Related Work
+
+Project Description
+We have achieved to design two maps, one of France and one of Europe, that fulfill our objectives of visualisation. We have placed the main cities on a classic map. As this moment, the distance between the cities is proportional to the actual distance between them. Then when the user click on his choosen city, called the reference, the other cities moves according to the train trip duration between them. As a consequence, the closest city to the reference is now the one that can be reached the fastest.
+\picture{}
+
+\subsection{scale}
+As this kind of interactive visualistion is not common, we have decided to add some landmarks to help the users to fully understand our map. There are multiple isochronic circles centered on the reference that represent the new distance. Also it is a tool that can help the users to compare the train trip durations between to cities.
+On this example we can see that Grenoble is closest to Montpellier than Marseille. Without this tool, it would be very difficult to compare those cities.
+
+
