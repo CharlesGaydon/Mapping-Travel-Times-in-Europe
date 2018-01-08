@@ -32,10 +32,10 @@
                   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav mr-auto">
                       <li class="nav-item active">
-                        <a class="nav-link" href="#">France <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#" onClick="changeToFrance();">France <span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Europe</a>
+                        <a class="nav-link" href="#" onClick="changeToEurope();">Europe</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link disabled" href="#">Project presentation</a>
@@ -58,52 +58,41 @@
 			<p>Petite description du projet</p> 
 		</div> -->
 		<div class="box">
+                    <input id="slider" type="range" value="0.2" min="0.2" max="1" step="0.01" />
+                    <span id="alpha_span" font-size="8px"></span>
 
-			<div class="row" >
+            <div class="row" >
 
-<!-- 				<div class="col-sm-2 jumbotron columnInformation">
-					<div class="borderBot">
-						<h3>parameters Column</h3>
-					</div>
-					<div class="borderBot">
-						<p id="villeName">Paris</p>
-						<p>France</p>
-						<img src="fake.jpg" alt="imageOrigin">	
-					</div>
-					<div>
-						<p>Tuning</p>
-					</div>
-				</div> -->
+<!--                <div class="col-sm-2 jumbotron columnInformation">
+                    <div class="borderBot">
+                        <h3>parameters Column</h3>
+                    </div>
+                    <div class="borderBot">
+                        <p id="villeName">Paris</p>
+                        <p>France</p>
+                        <img src="fake.jpg" alt="imageOrigin">  
+                    </div>
+                    <div>
+                        <p>Tuning</p>
+                    </div>
+                </div> -->
 
-				<div id="drawMap" class="mapColumn">
+                <div class="mapColumn" id="drawMap">
 				</div>
-<!--
-				<div class="col-sm-2 jumbotron columnInformation">
-					<div class="borderBot">
-						<h3>information Column</h3>
-					</div>
-					<div class="borderBot">
-						<img src="img/City_pic/Paris.jpg" alt="origin" width=300 height=180>	
-					</div>
-					<div class="test">
-						<p>Paris</p>
-					</div>
-				</div>
--->
-				<div class="mastercard test">
+				<div class="mastercard centeredCol">
 					
 					<div class="card city">
-						<h4 id="originName">undefined</h4>	
+            <h4 id="originName">Select city</h4>
 						<img id="originImg" src="img/City_pic/France/undefined.jpg" alt="origin">
 					</div>
 
 					<div class="card travel">
 						<img id="trainImg" src="img/Train.png" alt="train">
-						<p id="time"></p>
+						<p id="time">Select cities</p>
 					</div>
 
 					<div class="card city">
-						<h4 id="destinationName">undefined</h4>	
+						<h4 id="destinationName">Hover city</h4>	
 						<img id="destinationImg" src="img/City_pic/France/undefined.jpg" alt="destination">
 					</div>
 				</div>
