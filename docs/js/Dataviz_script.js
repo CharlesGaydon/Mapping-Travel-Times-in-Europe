@@ -8,14 +8,17 @@ var Paris = [48.856614,2.35];
 dynamic_color = "#F48B01";
 static_color = "#7171D7";
 main_color = "#ED0109";
-select_text = "-------------------- Select a reference city !  ----------------";
-play_text = "-------------------- Now play with me !  --------------------";
+// select_text = "-------------------- Select a reference city !  ----------------";
+// play_text = "-------------------- Now play with me !  --------------------";
+select_text = ""
+play_text = "   "
 radius_main = 6.5;
 radius_dynamic = 4.5; 
 radius_static = 5.5;
 
 move_time = 500
-France_color = "#97F2F2"; //before : "#7BCDC2"
+France_color = "#97F2F2"
+// "#97F2F2"; //before : "#7BCDC2"
 
 function init() {
     mouseListener();
