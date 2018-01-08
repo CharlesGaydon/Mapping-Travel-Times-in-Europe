@@ -24,6 +24,15 @@ function init() {
     UpdateCitiesFrance();
 }
 
+function changeToEurope(){
+    document.getElementById("drawMap").innerHTML = "";
+    mapEuropeDisplay();
+}
+
+function changeToFrance(){
+    document.getElementById("drawMap").innerHTML = "";
+    mapFranceDisplay();
+}
 
 function mapFranceDisplay(){
 
@@ -231,8 +240,8 @@ function mapFranceDisplay(){
                                 console.log(My_reference);
                             }else{
                                 My_reference = undefined;
-                                changeInformationCityOrigin("undefined", My_reference + ".jpg");
-                                changeInformationTravel("undefined");
+                                changeInformationCityOrigin("Select city", My_reference + ".jpg");
+                                changeInformationTravel("Select cities");
                             }
                         }else{
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
@@ -252,13 +261,13 @@ function mapFranceDisplay(){
                             getTimeBetweenTwoCities(My_reference, My_destination, cities);
                         }else{
                             My_destination = undefined;
-                            changeInformationCityDestination("undefined", "undefined.jpg");
-                            changeInformationTravel("undefined");
+                            changeInformationCityDestination("Hover city", "undefined.jpg");
+                            changeInformationTravel("Select cities");
                         }
                     }else{
                         My_destination = {City :d.City, plong : d.plong, plat : d.plat};
                         changeInformationCityDestination(d.City, d.City + ".jpg");
-                        changeInformationTravel("undefined");
+                        changeInformationTravel("Select cities");
                     }
                     UpdateCitiesFrance();
                 });
@@ -284,8 +293,8 @@ function mapFranceDisplay(){
                             console.log(My_reference)
                         }else{
                             My_reference = undefined;
-                            changeInformationCityOrigin("undefined", My_reference + ".jpg");
-                            changeInformationTravel("undefined");
+                            changeInformationCityOrigin("Select city", My_reference + ".jpg");
+                            changeInformationTravel("Select cities");
                         }
                     }else{
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
@@ -305,13 +314,13 @@ function mapFranceDisplay(){
                             
                         }else{
                             My_destination = undefined;
-                            changeInformationCityDestination("undefined", "undefined.jpg");
-                            changeInformationTravel("undefined");
+                            changeInformationCityDestination("Hover city", "undefined.jpg");
+                            changeInformationTravel("Select cities");
                         }
                     }else{
                         My_destination = {City :d.City, plong : d.plong, plat : d.plat};
                         changeInformationCityDestination(d.City, d.City + ".jpg");
-                        changeInformationTravel("undefined");
+                        changeInformationTravel("Select cities");
                     }
                     UpdateCitiesFrance();
                 });
@@ -741,10 +750,6 @@ function mouseListener(){
         return y;
     }
 }
-
-changeInformationCityOrigin("Dijon", "Dijon.jpg");
-changeInformationCityDestination("Limoges", "Limoges.jpg");
-
 
 function getTimeBetweenTwoCities(My_reference, My_destination, cities){
     var i = 0;
