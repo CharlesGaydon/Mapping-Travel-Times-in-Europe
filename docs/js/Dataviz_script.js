@@ -1,13 +1,18 @@
 console.log("START");
-var My_reference = undefined
-var My_destination = undefined
-var alpha = 0.0049;
-var mouse_position = undefined;
-var an_hour = undefined;
-var Paris = [48.856614,2.35];
+
+France_color = "#97F2F2"; //before : "#7BCDC2"
 dynamic_color = "#F48B01";
 static_color = "#7171D7";
 main_color = "#ED0109";
+
+var My_reference = undefined
+var My_destination = undefined
+// var mouse_position = undefined;
+Europe_slider_range = [0.0005,0.002,0.0008]; //min max init
+France_slider_range = [0.0015,0.018,0.010];
+slider_range = {"Europe":Europe_slider_range,"France":France_slider_range}
+var an_hour = undefined;
+var Paris = [48.856614,2.35];
 // select_text = "-------------------- Select a reference city !  ----------------";
 // play_text = "-------------------- Now play with me !  --------------------";
 select_text = "";
@@ -19,7 +24,6 @@ radius_static = 5.5;
 radius_offset = 1.8;
 
 move_time = 500
-France_color = "#97F2F2"; //before : "#7BCDC2"
 
 function init() {
     mouseListener();
@@ -38,7 +42,7 @@ function changeToFrance(){
     mapFranceDisplay();
 }
 
-function mapFranceDisplay(){
+function mapFranceDisplay(Which_map = "France"){
 
     // Canvas
     var width = 600,
@@ -72,47 +76,24 @@ function mapFranceDisplay(){
           .style("fill", France_color);
     });
 
-    // ADD SLIDER FOR ALPHA VALUE change css later
-        var min_slider = 0.0025
-        var max_slider = 0.012
-        var slider = document.getElementById("slider");
-        slider.value = min_slider
-        slider.min = min_slider;
-        slider.max = max_slider;
-        slider.fill = "#006EE3"
-        slider.step = (max_slider-min_slider)/25
-        var output = document.getElementById("alpha_span");
-        output.innerHTML = select_text;
-        slider.oninput = function() {
-          alpha = this.value
-          UpdateCitiesFrance();
-        }  
-        output.fill = "blue";
-        // d3.select("#alpha_span").attr("fill","blue").attr("transform", "translate(0,-30)")
-        d3.select("#slider").attr("fill","#006EE3")
+    // ADD SLIDER FOR ALPHA VALUE 
+    var slider = document.getElementById("slider");
 
-
-
-    // d3.select("g").append("foreignObject")
-    // .attr("width", 50)
-    // .attr("height", 80)
-    // .attr("x",5)
-    // .attr("y",5)
-    // .append("xhtml:body")
-    //     .html("<input id='slider' type='range' value=1 min=1 max=52 step=1 /> <span id='alpha_span'>init</span>")
-    //     .attr("x",5)
-    //     .attr("y",5)
-
-    // var slider = svg.select("#slider")
-    //     .attr("oninput", function() {
-    //     console.log(this)
-    //     span.innerHTML = this.value;
-    // } )
-    // var span = d3.select("#alpha_span")
-
-    // 
-
-
+    slider.min = slider_range[Which_map][0];
+    slider.max = slider_range[Which_map][1];
+    slider.step = (slider.max-slider.min)/25
+    slider.value = slider_range[Which_map][2]
+    alpha = slider.value //ICI VALEUR INITIALE ALPHA
+    var output = document.getElementById("alpha_span");
+    output.innerHTML = select_text; //not used
+    slider.oninput = function() {
+      alpha = this.value
+      UpdateCitiesFrance();
+    } 
+    // output.fill = "blue";
+    // slider.fill = "#006EE3"
+    // d3.select("#alpha_span").attr("fill","blue").attr("transform", "translate(0,-30)")
+    // d3.select("#slider").attr("fill","#006EE3")
 
     d3.csv("data/French-Cities_lat_long.csv", function(cities) {
         console.log("projecting French cities")
@@ -407,11 +388,6 @@ function mapFranceDisplay(){
 
 
 
-
-    // div.data(cities).attr("html",function(d){return d.City;})
-    //                 .attr("left",function(d){return (d3.event.pageX +5) + "px";}) 
-    //                 .attr("top", function(d){return (d3.event.pageY - 25) + "px";})
-
     })
 }
 
@@ -542,7 +518,7 @@ function new_coord(v_alpha, vecteur_1, vecteur_2){
 }
 
 
-function mapEuropeDisplay(){
+function mapEuropeDisplay(Which_map = "Europe"){
 
     // Canvas
     var width = 600,
