@@ -54,6 +54,20 @@ body {
     transition: 0.3s;
 }
 
+#popup{
+  top: 50%;
+  position:fixed;
+  left: 50%;
+  width:50%;
+  transform: translate(-90%, -55%); 
+  text-align: center;
+}
+
+.card_popup {
+    background: rgba(0,12,16,0.64);
+    color: white;
+}
+
 .card {
     width: 90%;
     border: 1px solid grey;
@@ -122,3 +136,4 @@ div.tooltip {
     stroke-width : 1.5px;
     stroke-dasharray: 2
 }
+

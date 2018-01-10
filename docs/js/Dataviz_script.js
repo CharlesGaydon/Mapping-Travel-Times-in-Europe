@@ -20,22 +20,32 @@ France_color = "#97F2F2"; //before : "#7BCDC2"
 function init() {
     mouseListener();
     // mapEuropeDisplay();
-    mapFranceDisplay();
-    UpdateCitiesFrance();
+    //mapFranceDisplay();
+    //UpdateCitiesFrance();
 }
 
 function changeToEurope(){
+    console.log("europe");
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("popup").style.visibility = "hidden";
+    document.getElementById("boxplot").style.visibility = "visible";
+    document.getElementById("scale").style.visibility = "visible";
     document.getElementById("drawMap").innerHTML = "";
     mapEuropeDisplay();
 }
 
 function changeToFrance(){
+    console.log("france");
+    document.getElementById("popup").style.display = "none"; 
+    document.getElementById("popup").style.visibility = "hidden";
+    document.getElementById("boxplot").style.visibility = "visible";
+    document.getElementById("scale").style.visibility = "visible";
     document.getElementById("drawMap").innerHTML = "";
     mapFranceDisplay();
 }
 
 function mapFranceDisplay(){
-
+    
     // Canvas
     var width = 600,
     height = 500;
@@ -507,7 +517,7 @@ function mapEuropeDisplay(){
           .style("fill", France_color);
     });
 
-    d3.csv("data/Europe-Cities_lat_long_Europe.csv", function(cities) {
+    d3.csv("data/Europe-Cities_lat_long.csv", function(cities) {
         console.log("projecting French cities")
         cities.forEach(function(d){
             d.long = parseFloat(d.long)
@@ -524,7 +534,7 @@ function mapEuropeDisplay(){
         }) 
         // associer à chaque ville un dictionniare avec pour chaque autre ville ses voisins.
 
-        d3.csv("data/Europe-Cities_Distance_Matrix_Europe.txt",function(distances){
+        d3.csv("data/Europe-Cities_Distance_Matrix.txt",function(distances){
             for(var city_index = 0 ; city_index<distances.length;city_index++){
                 var the_city = cities[city_index]["City"]
                 for(var dist_index = 0 ; dist_index<distances.length;dist_index++){
