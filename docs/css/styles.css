@@ -57,9 +57,9 @@ body {
 #popup{
   top: 50%;
   position:fixed;
-  left: 50%;
-  width:50%;
-  transform: translate(-90%, -55%); 
+  left: 35%;
+  width: 65%;
+  transform: translate(-55%, -50%); 
   text-align: center;
 }
 
