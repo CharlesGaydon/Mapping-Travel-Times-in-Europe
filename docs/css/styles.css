@@ -24,9 +24,12 @@ body {
 	border: 2px solid black;
 }
 
-.jumbotron {
-     padding: 5em inherit;
+/*.nav-item{
+    margin-left: 10px;
 }
+#left-item.nav-item{
+    margin-left: 250px;
+}*/
 
 .columnInformation > .borderBot{
     width: 100%;
@@ -54,12 +57,21 @@ body {
     transition: 0.3s;
 }
 
-#popup{
-  top: 50%;
+
+#scale{
   position:fixed;
-  left: 35%;
-  width: 65%;
-  transform: translate(-55%, -50%); 
+  transform: translate(0, -3%); 
+  left: 15%;
+  width: 60%;
+  top:80px;  
+}
+#popup{
+  /*top: 50%;*/
+  top:80px;
+  position:fixed;
+  left: 15%;
+  width: 70%;
+  transform: translate(0, -5%); 
   text-align: center;
 }
 
@@ -137,8 +149,6 @@ div.tooltip {
     stroke-width : 1.5px;
     stroke-dasharray: 2
 }
-
-
 
 .user-select-none {
   -webkit-user-select: none;  /* Chrome all / Safari all */
