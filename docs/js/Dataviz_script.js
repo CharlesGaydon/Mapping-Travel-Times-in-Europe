@@ -225,6 +225,7 @@ function mapFranceDisplay(Which_map = "France"){
                     .on("click",function(d){
                         document.getElementById("travel").style.visibility = "hidden";
                         document.getElementById("destination").style.visibility = "hidden";
+                        changeInformationTravel("Hover city");
                         My_destination = undefined;
                         if(typeof My_reference !== 'undefined'){
                             if(My_reference.City !=d.City){
@@ -297,6 +298,7 @@ function mapFranceDisplay(Which_map = "France"){
                     document.getElementById("travel").style.visibility = "hidden";
                     document.getElementById("destination").style.visibility = "hidden";
                     My_destination = undefined;
+                    changeInformationTravel("Hover city");
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             document.getElementById("travel").style.visibility = "visible";
@@ -325,7 +327,7 @@ function mapFranceDisplay(Which_map = "France"){
                     d3.select(this).style("cursor", "pointer")
                     d3.select(this).style("r", radius_dynamic+radius_offset);
                     d3.select("#static_"+d.City).style("r", radius_static+radius_offset);
-                    
+
                     if(typeof My_reference !== 'undefined'){
                         document.getElementById("travel").style.visibility = "visible";
                         if(My_reference.City !=d.City){
@@ -365,8 +367,13 @@ function mapFranceDisplay(Which_map = "France"){
           .attr("y", function(d) { return d.plat +15; })
           .attr("font-size", "11px")// .attr("font-weight","bold")
           .on("click", function(d){
+                document.getElementById("travel").style.visibility = "hidden";
+                document.getElementById("destination").style.visibility = "hidden";
+                My_destination = undefined;
+                changeInformationTravel("Hover city");
                 if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
+                            document.getElementById("travel").style.visibility = "visible";
                             My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                             changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
                             if(typeof My_destination !== 'undefined')
@@ -375,9 +382,10 @@ function mapFranceDisplay(Which_map = "France"){
                         }else{
                             My_reference = undefined;
                             changeInformationCityOrigin("Select city", My_reference + ".jpg");
-                            changeInformationTravel("Select cities");
+                            changeInformationTravel("Hover city");
                         }
                     }else{
+                        document.getElementById("travel").style.visibility = "visible";
                         My_reference = {City :d.City, plong : d.plong, plat : d.plat};
                         changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
                         if(typeof My_destination !== 'undefined')
@@ -387,24 +395,28 @@ function mapFranceDisplay(Which_map = "France"){
                     UpdateCitiesFrance();
           })
           .on("mouseover",function(d){
+                    //document.getElementById("travel").style.visibility = "hidden";
+                    //document.getElementById("destination").style.visibility = "hidden";
                     d3.select(this).style("cursor", "pointer")
                     d3.select('#dynamic_'+d.City).style("r", radius_dynamic+radius_offset);
                     d3.select('#static_'+d.City).style("r", radius_static+radius_offset);
                     if(typeof My_reference !== 'undefined'){
+                        //document.getElementById("travel").style.visibility = "visible";
                         if(My_reference.City !=d.City){
-                            My_destination = {City :d.City, plong : d.plong, plat : d.plat};
-                            changeInformationCityDestination(d.City, d.City + ".jpg");
-                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                            //My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                            //document.getElementById("destination").style.visibility = "visible";
+                            //changeInformationCityDestination(d.City, d.City + ".jpg");
+                            //getTimeBetweenTwoCities(My_reference, My_destination, cities);
                             
                         }else{
-                            My_destination = undefined;
-                            changeInformationCityDestination("Hover city", "undefined.jpg");
-                            changeInformationTravel("Select cities");
+                            //My_destination = undefined;
+                            //changeInformationCityDestination("Hover city", "undefined.jpg");
+                            //changeInformationTravel("Hover city");
                         }
                     }else{
-                        My_destination = {City :d.City, plong : d.plong, plat : d.plat};
-                        changeInformationCityDestination(d.City, d.City + ".jpg");
-                        changeInformationTravel("Select cities");
+                        //My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                        //changeInformationCityDestination(d.City, d.City + ".jpg");
+                        //changeInformationTravel("Hover city");
                     }
                     UpdateCitiesFrance();
                 })
