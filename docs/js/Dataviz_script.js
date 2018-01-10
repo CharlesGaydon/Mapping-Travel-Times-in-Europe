@@ -1,40 +1,59 @@
 console.log("START");
-var My_reference = undefined
-var My_destination = undefined
-var alpha = 0.0049;
-var mouse_position = undefined;
-var an_hour = undefined;
-var Paris = [48.856614,2.35];
+
+France_color = "#97F2F2"; //before : "#7BCDC2"
 dynamic_color = "#F48B01";
 static_color = "#7171D7";
 main_color = "#ED0109";
-select_text = "-------------------- Select a reference city !  ----------------";
-play_text = "-------------------- Now play with me !  --------------------";
+
+var My_reference = undefined
+var My_destination = undefined
+// var mouse_position = undefined;
+Europe_slider_range = [0.0005,0.002,0.0008]; //min max init
+France_slider_range = [0.0015,0.018,0.010];
+slider_range = {"Europe":Europe_slider_range,"France":France_slider_range}
+var an_hour = undefined;
+var Paris = [48.856614,2.35];
+// select_text = "-------------------- Select a reference city !  ----------------";
+// play_text = "-------------------- Now play with me !  --------------------";
+select_text = "";
+play_text = "";
+
 radius_main = 6.5;
 radius_dynamic = 4.5; 
 radius_static = 5.5;
+radius_offset = 1.8;
 
 move_time = 500
-France_color = "#97F2F2"; //before : "#7BCDC2"
 
 function init() {
     mouseListener();
     // mapEuropeDisplay();
-    mapFranceDisplay();
-    UpdateCitiesFrance();
+    //mapFranceDisplay();
+    //UpdateCitiesFrance();
 }
 
 function changeToEurope(){
+    console.log("europe");
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("popup").style.visibility = "hidden";
+    document.getElementById("boxplot").style.visibility = "visible";
+    document.getElementById("scale").style.visibility = "visible";
     document.getElementById("drawMap").innerHTML = "";
     mapEuropeDisplay();
 }
 
 function changeToFrance(){
+    console.log("france");
+    document.getElementById("popup").style.display = "none"; 
+    document.getElementById("popup").style.visibility = "hidden";
+    document.getElementById("boxplot").style.visibility = "visible";
+    document.getElementById("scale").style.visibility = "visible";
     document.getElementById("drawMap").innerHTML = "";
     mapFranceDisplay();
 }
 
-function mapFranceDisplay(){
+
+function mapFranceDisplay(Which_map = "France"){
 
     // Canvas
     var width = 600,
@@ -68,47 +87,24 @@ function mapFranceDisplay(){
           .style("fill", France_color);
     });
 
-    // ADD SLIDER FOR ALPHA VALUE change css later
-        var min_slider = 0.0025
-        var max_slider = 0.012
-        var slider = document.getElementById("slider");
-        slider.value = min_slider
-        slider.min = min_slider;
-        slider.max = max_slider;
-        slider.fill = "#006EE3"
-        slider.step = (max_slider-min_slider)/25
-        var output = document.getElementById("alpha_span");
-        output.innerHTML = select_text;
-        slider.oninput = function() {
-          alpha = this.value
-          UpdateCitiesFrance();
-        }  
-        output.fill = "blue";
-        // d3.select("#alpha_span").attr("fill","blue").attr("transform", "translate(0,-30)")
-        d3.select("#slider").attr("fill","#006EE3")
+    // ADD SLIDER FOR ALPHA VALUE 
+    var slider = document.getElementById("slider");
 
-
-
-    // d3.select("g").append("foreignObject")
-    // .attr("width", 50)
-    // .attr("height", 80)
-    // .attr("x",5)
-    // .attr("y",5)
-    // .append("xhtml:body")
-    //     .html("<input id='slider' type='range' value=1 min=1 max=52 step=1 /> <span id='alpha_span'>init</span>")
-    //     .attr("x",5)
-    //     .attr("y",5)
-
-    // var slider = svg.select("#slider")
-    //     .attr("oninput", function() {
-    //     console.log(this)
-    //     span.innerHTML = this.value;
-    // } )
-    // var span = d3.select("#alpha_span")
-
-    // 
-
-
+    slider.min = slider_range[Which_map][0];
+    slider.max = slider_range[Which_map][1];
+    slider.step = (slider.max-slider.min)/25
+    slider.value = slider_range[Which_map][2]
+    alpha = slider.value //ICI VALEUR INITIALE ALPHA
+    var output = document.getElementById("alpha_span");
+    output.innerHTML = select_text; //not used
+    slider.oninput = function() {
+      alpha = this.value
+      UpdateCitiesFrance();
+    } 
+    // output.fill = "blue";
+    // slider.fill = "#006EE3"
+    // d3.select("#alpha_span").attr("fill","blue").attr("transform", "translate(0,-30)")
+    // d3.select("#slider").attr("fill","#006EE3")
 
     d3.csv("data/French-Cities_lat_long.csv", function(cities) {
         console.log("projecting French cities")
@@ -153,12 +149,7 @@ function mapFranceDisplay(){
 
     // APPEND ISOCHRONES CIRCLES
 
-    // var A = [cities[0].plat,cities[0].plong]
-    // console.log(JSON.stringify(cities[0]))
-    // var B = new_coord(alpha*cities[0]["dist"][cities[1]["City"]], [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-
-    // var B = new_coord(alpha*12060, [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-    an_hour = 3600 * alpha//*norme([B[0]-A[0],B[1]-A[1]])/( 12060) hard codé car l'élément dist est apparemment crée ensuite !
+    an_hour = 3600 * alpha
 
     console.log("An hour is worth (px) :")
     console.log(an_hour)
@@ -195,11 +186,12 @@ function mapFranceDisplay(){
           .data(isoH)
           .enter()
           .append("text")
-              .attr("class", "iso_label")
+              .attr("class", "iso_label user-select-none")
               .attr("id",function(d){return "iso_label"+d.NB_hour;})
               .attr("x", projection([48.856614,2.35])[0])
               .attr("y", function(d) {var y = projection([48.856614,2.35])[1]; return y; }) //faux mais osef
-              .attr("font-size", "10px")
+              .attr("font-size", "13px")
+              .attr("font-weight","bold")
               .attr("opacity",0)
               .text(function(d) {return d.label;});
 
@@ -222,11 +214,12 @@ function mapFranceDisplay(){
                 .enter()
                 .append('circle')
                     .attr("class","Static_Cities")
+                    .attr("id", function(d){return "static_"+d.City;})
                     .attr("cx", function(d) {return d.plong;})
                     .attr("cy", function(d) { return d.plat;})
                     .attr("position","absolute")
                     .attr("z-index", 4)
-                    //.attr("r", 3.5) //pas de rayon initialement !
+                    .attr("r", 0.0001)
                     .style("fill", static_color)
                     .style("opacity",0.8)
                     .on("click",function(d){
@@ -257,6 +250,10 @@ function mapFranceDisplay(){
                 .on("mouseover",function(d){
                     document.getElementById("travel").style.visibility = "hidden";
                     document.getElementById("destination").style.visibility = "hidden";
+                    d3.select(this).style("cursor", "pointer")
+                    d3.select(this).style("r", radius_static+radius_offset); 
+                    d3.select("#dynamic_"+d.City).style("r", radius_dynamic+radius_offset); 
+
                     if(typeof My_reference !== 'undefined'){
                         document.getElementById("travel").style.visibility = "visible";
                         if(My_reference.City !=d.City){
@@ -277,6 +274,11 @@ function mapFranceDisplay(){
                         changeInformationTravel("Hover city");
                     }
                     UpdateCitiesFrance();
+                })
+                .on("mouseout",function(d){
+                    d3.select(this).style("cursor", "default")
+                    d3.select(this).transition().duration(50).style("r", radius_static);
+                    d3.select("#dynamic_").transition().duration(50).style("r", radius_dynamic); 
                 });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
@@ -284,6 +286,7 @@ function mapFranceDisplay(){
             .enter()
             .append('circle')
                 .attr("class","Cities")
+                .attr("id", function(d){return "dynamic_"+d.City;})
                 .attr("cx", function(d) {return d.plong;})
                 .attr("cy", function(d) { return d.plat;})
                 .attr("r", radius_dynamic)
@@ -319,6 +322,10 @@ function mapFranceDisplay(){
                 .on("mouseover",function(d){
                     document.getElementById("travel").style.visibility = "hidden";
                     document.getElementById("destination").style.visibility = "hidden";
+                    d3.select(this).style("cursor", "pointer")
+                    d3.select(this).style("r", radius_dynamic+radius_offset);
+                    d3.select("#static_"+d.City).style("r", radius_static+radius_offset);
+                    
                     if(typeof My_reference !== 'undefined'){
                         document.getElementById("travel").style.visibility = "visible";
                         if(My_reference.City !=d.City){
@@ -338,25 +345,76 @@ function mapFranceDisplay(){
                         changeInformationTravel("Hover city");
                     }
                     UpdateCitiesFrance();
+                })
+                .on("mouseout",function(d){
+                    d3.select(this).style("cursor", "default")
+                    d3.select(this).transition().duration(50).style("r", radius_dynamic);
+                    d3.select("#static_"+d.City).transition().duration(50).style("r", radius_static);
                 });
 
     // APPEND TOOLTIP
+
     g.selectAll(".city_label")
       .data(cities)
       .enter()
       .append("text")
-          .attr("class", "city_label")
+          .attr("class", "city_label user-select-none")
+          .attr("id", function(d){return d.City;})
+          .text(function(d) { return d.City.toUpperCase();}) //test de majuscule
           .attr("x", function(d) { return d.plong-10; })
-          .attr("y", function(d) { return d.plat +13; })
-          .attr("font-size", "12px")
-          .text(function(d) { return d.City;});
+          .attr("y", function(d) { return d.plat +15; })
+          .attr("font-size", "11px")// .attr("font-weight","bold")
+          .on("click", function(d){
+                if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                            if(typeof My_destination !== 'undefined')
+                                getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                            console.log(My_reference)
+                        }else{
+                            My_reference = undefined;
+                            changeInformationCityOrigin("Select city", My_reference + ".jpg");
+                            changeInformationTravel("Select cities");
+                        }
+                    }else{
+                        My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                        changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                        if(typeof My_destination !== 'undefined')
+                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                        console.log("Ref :"+ My_reference.City)
+                    }
+                    UpdateCitiesFrance();
+          })
+          .on("mouseover",function(d){
+                    d3.select(this).style("cursor", "pointer")
+                    d3.select('#dynamic_'+d.City).style("r", radius_dynamic+radius_offset);
+                    d3.select('#static_'+d.City).style("r", radius_static+radius_offset);
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
+                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                            
+                        }else{
+                            My_destination = undefined;
+                            changeInformationCityDestination("Hover city", "undefined.jpg");
+                            changeInformationTravel("Select cities");
+                        }
+                    }else{
+                        My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                        changeInformationCityDestination(d.City, d.City + ".jpg");
+                        changeInformationTravel("Select cities");
+                    }
+                    UpdateCitiesFrance();
+                })
+        .on("mouseout",function(d){
+            d3.select(this).style("cursor", "default")
+            d3.select('#dynamic_'+d.City).transition().duration(50).style("r", radius_dynamic);
+            d3.select('#static_'+d.City).transition().duration(50).style("r", radius_static);
+        });
 
 
-
-
-    // div.data(cities).attr("html",function(d){return d.City;})
-    //                 .attr("left",function(d){return (d3.event.pageX +5) + "px";}) 
-    //                 .attr("top", function(d){return (d3.event.pageY - 25) + "px";})
 
     })
 }
@@ -377,12 +435,12 @@ function UpdateCitiesFrance(){
             .transition().duration(move_time)
             .attr("cx", function(d) {return d.plong;} )
             .attr("cy", function(d) {return d.plat;} )
-            .attr("r", radius_static)
+            .attr("r", radius_dynamic)
             .style("fill", dynamic_color);
 
         g.selectAll(".Static_Cities")
             .transition().duration(move_time)
-            .attr("r", 0)
+            .attr("r", 0.0001)
 
         g.selectAll(".iso_circles")
             .attr("cx",Paris.plong)
@@ -488,7 +546,7 @@ function new_coord(v_alpha, vecteur_1, vecteur_2){
 }
 
 
-function mapEuropeDisplay(){
+function mapEuropeDisplay(Which_map = "Europe"){
 
     // Canvas
     var width = 600,
@@ -522,7 +580,7 @@ function mapEuropeDisplay(){
           .style("fill", France_color);
     });
 
-    d3.csv("data/Europe-Cities_lat_long_Europe.csv", function(cities) {
+    d3.csv("data/Europe-Cities_lat_long.csv", function(cities) {
         console.log("projecting French cities")
         cities.forEach(function(d){
             d.long = parseFloat(d.long)
@@ -539,7 +597,7 @@ function mapEuropeDisplay(){
         }) 
         // associer à chaque ville un dictionniare avec pour chaque autre ville ses voisins.
 
-        d3.csv("data/Europe-Cities_Distance_Matrix_Europe.txt",function(distances){
+        d3.csv("data/Europe-Cities_Distance_Matrix.txt",function(distances){
             for(var city_index = 0 ; city_index<distances.length;city_index++){
                 var the_city = cities[city_index]["City"]
                 for(var dist_index = 0 ; dist_index<distances.length;dist_index++){
@@ -702,7 +760,7 @@ function mapEuropeDisplay(){
       .data(cities)
       .enter()
       .append("text")
-          .attr("class", "city_label")
+          .attr("class", "city_label user-select-none")
           .attr("x", function(d) { return d.plong-10; })
           .attr("y", function(d) { return d.plat +13; })
           .attr("font-size", "12px")

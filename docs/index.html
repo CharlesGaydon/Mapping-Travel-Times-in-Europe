@@ -34,7 +34,7 @@
                       <li class="nav-item active">
                         <a class="nav-link" href="#" onClick="changeToFrance();">France <span class="sr-only">(current)</span></a>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item active">
                         <a class="nav-link" href="#" onClick="changeToEurope();">Europe</a>
                       </li>
                       <li class="nav-item">
@@ -57,10 +57,10 @@
 			<h1>Mapping Travel Times in Europe</h1>
 			<p>Petite description du projet</p> 
 		</div> -->
-		<div class="box">
-      <div class="centered">
-            <input id="slider" type="range" value="0.2" min="0.2" max="1" step="0.01" />
-            <span id="alpha_span" font-size="8px"></span>
+
+		<div id="scale" class="box" style="visibility: hidden;">
+                    <input id="slider" type="range" value="0.2" min="0.2" max="1" step="0.01" />
+                    <span id="alpha_span" font-size="8px"></span>
 
             <div class="row" >
 
@@ -80,7 +80,7 @@
 
                 <div class="mapColumn" id="drawMap">
 				</div>
-				<div class="mastercard centeredCol">
+				<div id = "boxplot" class="mastercard centeredCol" style="visibility: hidden;">
 					
 					<div id="origin" class="card city">
             <h4 id="originName">Select city</h4>
@@ -101,6 +101,47 @@
 			</div>
 		</div>
   </div>
+
+  <div id="popup">
+      <div class="card">
+        <div class="card_popup">
+              <div class="card-content white-text">
+                  <span class="card-title">
+                    <font size="18">Hello Dear User !
+                    </font>
+                  </span>
+                    <p> </p>
+                    <p>We are very glad that you found our website ! Here there is a new kind of map. You already knows classical maps that is based on distance.
+                    <p>We have decided to change your vision of your world and we help you to visualize cities according to the trip durations that link them. If you click on your favourite city, the other will be displayed according to their time-closeness.</p>
+                    <p>Feel free to mouse over other cities, it will display the train trip duration between it and your favourite city.</p>
+                    <p>As we are (cool) french students we have focused on Europe and France.</p>
+
+                    <p>What do you want to play with ?</p>
+                      
+                      <a  href="#" onClick="changeToFrance();" style="color: black; font-weight:bold;">
+                        <font size="11">
+                          France
+                        </font>
+                      </a>
+
+                      <p> </p>
+                      <a  href="#" onClick="changeToEurope();" style="color: black; font-weight:bold;">
+                        <font size="11">
+                          Europe
+                        </font>
+                      </a>
+                      
+                
+                    <p> </p>
+                    <p>Tips : you can change the scale of your new map by playing with the ratio on the top left corner !</p>
+<p>Our data come from Google. We have used a great pyhton <a href="https://developers.google.com/maps/?hl=fr" style="color: white; font-weight:bold;">API</a>.</p>
+                    
+              </div>
+        </div>
+        
+      </div>
+  </div>
+
 
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
