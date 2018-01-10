@@ -58,8 +58,9 @@
 			<p>Petite description du projet</p> 
 		</div> -->
 		<div class="box">
-                    <input id="slider" type="range" value="0.2" min="0.2" max="1" step="0.01" />
-                    <span id="alpha_span" font-size="8px"></span>
+      <div class="centered">
+            <input id="slider" type="range" value="0.2" min="0.2" max="1" step="0.01" />
+            <span id="alpha_span" font-size="8px"></span>
 
             <div class="row" >
 
@@ -81,24 +82,25 @@
 				</div>
 				<div class="mastercard centeredCol">
 					
-					<div class="card city">
+					<div id="origin" class="card city">
             <h4 id="originName">Select city</h4>
-						<img id="originImg" src="img/City_pic/France/undefined.jpg" alt="origin">
+						<img id="originImg" src="img/City_pic/undefined.jpg" alt="origin">
 					</div>
 
-					<div class="card travel">
+					<div id="travel" class="card travel" style="visibility: hidden;">
 						<img id="trainImg" src="img/Train.png" alt="train">
-						<p id="time">Select cities</p>
+						<p id="time">Hover city</p>
 					</div>
 
-					<div class="card city">
+					<div id="destination" class="card city" style="visibility: hidden;">
 						<h4 id="destinationName">Hover city</h4>	
-						<img id="destinationImg" src="img/City_pic/France/undefined.jpg" alt="destination">
+						<img id="destinationImg" src="img/City_pic/undefined.jpg" alt="destination">
 					</div>
 				</div>
 
 			</div>
 		</div>
+  </div>
 
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
