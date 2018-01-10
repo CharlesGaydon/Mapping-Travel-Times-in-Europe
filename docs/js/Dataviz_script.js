@@ -16,14 +16,15 @@ play_text = "";
 radius_main = 6.5;
 radius_dynamic = 4.5; 
 radius_static = 5.5;
+radius_offset = 1.8;
 
 move_time = 500
 France_color = "#97F2F2"; //before : "#7BCDC2"
 
 function init() {
     mouseListener();
-    mapEuropeDisplay();
-    // mapFranceDisplay();
+    // mapEuropeDisplay();
+    mapFranceDisplay();
     UpdateCitiesFrance();
 }
 
@@ -229,7 +230,7 @@ function mapFranceDisplay(){
                     .attr("cy", function(d) { return d.plat;})
                     .attr("position","absolute")
                     .attr("z-index", 4)
-                    //.attr("r", 3.5) //pas de rayon initialement !
+                    .attr("r", 0.0001)
                     .style("fill", static_color)
                     .style("opacity",0.8)
                     .on("click",function(d){
@@ -256,7 +257,8 @@ function mapFranceDisplay(){
                         UpdateCitiesFrance();
                     })
                 .on("mouseover",function(d){
-                    d3.select(this).style("cursor", "pointer"); 
+                    d3.select(this).style("cursor", "pointer")
+                    d3.select(this).style("r", radius_static+radius_offset); 
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_destination = {City :d.City, plong : d.plong, plat : d.plat};
@@ -276,7 +278,8 @@ function mapFranceDisplay(){
                     UpdateCitiesFrance();
                 })
                 .on("mouseout",function(d){
-                    d3.select(this).style("cursor", "default");
+                    d3.select(this).style("cursor", "default")
+                    d3.select(this).transition().duration(100).style("r", radius_static);
                 });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
@@ -313,7 +316,7 @@ function mapFranceDisplay(){
                     UpdateCitiesFrance();
                 })
                 .on("mouseover",function(d){
-                    d3.select(this).style("cursor", "pointer");
+                    d3.select(this).style("cursor", "pointer").style("r", radius_dynamic+radius_offset);
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_destination = {City :d.City, plong : d.plong, plat : d.plat};
@@ -333,7 +336,7 @@ function mapFranceDisplay(){
                     UpdateCitiesFrance();
                 })
                 .on("mouseout",function(d){
-                    d3.select(this).style("cursor", "default");
+                    d3.select(this).style("cursor", "default").transition().duration(100).style("r", radius_dynamic);
                 });
 
     // APPEND TOOLTIP
@@ -373,12 +376,12 @@ function UpdateCitiesFrance(){
             .transition().duration(move_time)
             .attr("cx", function(d) {return d.plong;} )
             .attr("cy", function(d) {return d.plat;} )
-            .attr("r", radius_static)
+            .attr("r", radius_dynamic)
             .style("fill", dynamic_color);
 
         g.selectAll(".Static_Cities")
             .transition().duration(move_time)
-            .attr("r", 0)
+            .attr("r", 0.0001)
 
         g.selectAll(".iso_circles")
             .attr("cx",Paris.plong)
