@@ -157,12 +157,7 @@ function mapFranceDisplay(){
 
     // APPEND ISOCHRONES CIRCLES
 
-    // var A = [cities[0].plat,cities[0].plong]
-    // console.log(JSON.stringify(cities[0]))
-    // var B = new_coord(alpha*cities[0]["dist"][cities[1]["City"]], [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-
-    // var B = new_coord(alpha*12060, [cities[0].plong,cities[0].plat], [cities[1].plong,cities[1].plat])
-    an_hour = 3600 * alpha//*norme([B[0]-A[0],B[1]-A[1]])/( 12060) hard codé car l'élément dist est apparemment crée ensuite !
+    an_hour = 3600 * alpha
 
     console.log("An hour is worth (px) :")
     console.log(an_hour)
@@ -227,6 +222,7 @@ function mapFranceDisplay(){
                 .enter()
                 .append('circle')
                     .attr("class","Static_Cities")
+                    .attr("id", function(d){return "static_"+d.City;})
                     .attr("cx", function(d) {return d.plong;})
                     .attr("cy", function(d) { return d.plat;})
                     .attr("position","absolute")
@@ -260,6 +256,7 @@ function mapFranceDisplay(){
                 .on("mouseover",function(d){
                     d3.select(this).style("cursor", "pointer")
                     d3.select(this).style("r", radius_static+radius_offset); 
+                    d3.select("#dynamic_"+d.City).style("r", radius_dynamic+radius_offset); 
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_destination = {City :d.City, plong : d.plong, plat : d.plat};
@@ -280,7 +277,8 @@ function mapFranceDisplay(){
                 })
                 .on("mouseout",function(d){
                     d3.select(this).style("cursor", "default")
-                    d3.select(this).transition().duration(100).style("r", radius_static);
+                    d3.select(this).transition().duration(50).style("r", radius_static);
+                    d3.select("#dynamic_").transition().duration(50).style("r", radius_dynamic); 
                 });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
@@ -288,6 +286,7 @@ function mapFranceDisplay(){
             .enter()
             .append('circle')
                 .attr("class","Cities")
+                .attr("id", function(d){return "dynamic_"+d.City;})
                 .attr("cx", function(d) {return d.plong;})
                 .attr("cy", function(d) { return d.plat;})
                 .attr("r", radius_dynamic)
@@ -317,7 +316,9 @@ function mapFranceDisplay(){
                     UpdateCitiesFrance();
                 })
                 .on("mouseover",function(d){
-                    d3.select(this).style("cursor", "pointer").style("r", radius_dynamic+radius_offset);
+                    d3.select(this).style("cursor", "pointer")
+                    d3.select(this).style("r", radius_dynamic+radius_offset);
+                    d3.select("#static_"+d.City).style("r", radius_static+radius_offset);
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_destination = {City :d.City, plong : d.plong, plat : d.plat};
@@ -337,19 +338,72 @@ function mapFranceDisplay(){
                     UpdateCitiesFrance();
                 })
                 .on("mouseout",function(d){
-                    d3.select(this).style("cursor", "default").transition().duration(100).style("r", radius_dynamic);
+                    d3.select(this).style("cursor", "default")
+                    d3.select(this).transition().duration(50).style("r", radius_dynamic);
+                    d3.select("#static_"+d.City).transition().duration(50).style("r", radius_static);
                 });
 
     // APPEND TOOLTIP
+
     g.selectAll(".city_label")
       .data(cities)
       .enter()
       .append("text")
           .attr("class", "city_label user-select-none")
+          .attr("id", function(d){return d.City;})
+          .text(function(d) { return d.City.toUpperCase();}) //test de majuscule
           .attr("x", function(d) { return d.plong-10; })
           .attr("y", function(d) { return d.plat +15; })
-          .attr("font-size", "11px")
-          .text(function(d) { return d.City.toUpperCase();}); //test de majuscule
+          .attr("font-size", "11px")// .attr("font-weight","bold")
+          .on("click", function(d){
+                if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                            if(typeof My_destination !== 'undefined')
+                                getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                            console.log(My_reference)
+                        }else{
+                            My_reference = undefined;
+                            changeInformationCityOrigin("Select city", My_reference + ".jpg");
+                            changeInformationTravel("Select cities");
+                        }
+                    }else{
+                        My_reference = {City :d.City, plong : d.plong, plat : d.plat};
+                        changeInformationCityOrigin(My_reference.City, My_reference.City + ".jpg");
+                        if(typeof My_destination !== 'undefined')
+                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                        console.log("Ref :"+ My_reference.City)
+                    }
+                    UpdateCitiesFrance();
+          })
+          .on("mouseover",function(d){
+                    d3.select(this).style("cursor", "pointer")
+                    d3.select('#dynamic_'+d.City).style("r", radius_dynamic+radius_offset);
+                    d3.select('#static_'+d.City).style("r", radius_static+radius_offset);
+                    if(typeof My_reference !== 'undefined'){
+                        if(My_reference.City !=d.City){
+                            My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                            changeInformationCityDestination(d.City, d.City + ".jpg");
+                            getTimeBetweenTwoCities(My_reference, My_destination, cities);
+                            
+                        }else{
+                            My_destination = undefined;
+                            changeInformationCityDestination("Hover city", "undefined.jpg");
+                            changeInformationTravel("Select cities");
+                        }
+                    }else{
+                        My_destination = {City :d.City, plong : d.plong, plat : d.plat};
+                        changeInformationCityDestination(d.City, d.City + ".jpg");
+                        changeInformationTravel("Select cities");
+                    }
+                    UpdateCitiesFrance();
+                })
+        .on("mouseout",function(d){
+            d3.select(this).style("cursor", "default")
+            d3.select('#dynamic_'+d.City).transition().duration(50).style("r", radius_dynamic);
+            d3.select('#static_'+d.City).transition().duration(50).style("r", radius_static);
+        });
 
 
 
