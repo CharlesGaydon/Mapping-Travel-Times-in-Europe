@@ -256,6 +256,7 @@ function mapFranceDisplay(){
                         UpdateCitiesFrance();
                     })
                 .on("mouseover",function(d){
+                    d3.select(this).style("cursor", "pointer"); 
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_destination = {City :d.City, plong : d.plong, plat : d.plat};
@@ -273,6 +274,9 @@ function mapFranceDisplay(){
                         changeInformationTravel("Select cities");
                     }
                     UpdateCitiesFrance();
+                })
+                .on("mouseout",function(d){
+                    d3.select(this).style("cursor", "default");
                 });
         // DYNAMIC CITIES
         g.selectAll('.Cities')
@@ -309,6 +313,7 @@ function mapFranceDisplay(){
                     UpdateCitiesFrance();
                 })
                 .on("mouseover",function(d){
+                    d3.select(this).style("cursor", "pointer");
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             My_destination = {City :d.City, plong : d.plong, plat : d.plat};
@@ -326,6 +331,9 @@ function mapFranceDisplay(){
                         changeInformationTravel("Select cities");
                     }
                     UpdateCitiesFrance();
+                })
+                .on("mouseout",function(d){
+                    d3.select(this).style("cursor", "default");
                 });
 
     // APPEND TOOLTIP
