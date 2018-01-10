@@ -8,8 +8,11 @@ var Paris = [48.856614,2.35];
 dynamic_color = "#F48B01";
 static_color = "#7171D7";
 main_color = "#ED0109";
-select_text = "-------------------- Select a reference city !  ----------------";
-play_text = "-------------------- Now play with me !  --------------------";
+// select_text = "-------------------- Select a reference city !  ----------------";
+// play_text = "-------------------- Now play with me !  --------------------";
+select_text = "";
+play_text = "";
+
 radius_main = 6.5;
 radius_dynamic = 4.5; 
 radius_static = 5.5;
@@ -19,8 +22,8 @@ France_color = "#97F2F2"; //before : "#7BCDC2"
 
 function init() {
     mouseListener();
-    // mapEuropeDisplay();
-    mapFranceDisplay();
+    mapEuropeDisplay();
+    // mapFranceDisplay();
     UpdateCitiesFrance();
 }
 
@@ -330,7 +333,7 @@ function mapFranceDisplay(){
       .data(cities)
       .enter()
       .append("text")
-          .attr("class", "city_label")
+          .attr("class", "city_label user-select-none")
           .attr("x", function(d) { return d.plong-10; })
           .attr("y", function(d) { return d.plat +13; })
           .attr("font-size", "12px")
@@ -687,7 +690,7 @@ function mapEuropeDisplay(){
       .data(cities)
       .enter()
       .append("text")
-          .attr("class", "city_label")
+          .attr("class", "city_label user-select-none")
           .attr("x", function(d) { return d.plong-10; })
           .attr("y", function(d) { return d.plat +13; })
           .attr("font-size", "12px")
