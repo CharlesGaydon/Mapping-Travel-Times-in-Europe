@@ -199,11 +199,12 @@ function mapFranceDisplay(){
           .data(isoH)
           .enter()
           .append("text")
-              .attr("class", "iso_label")
+              .attr("class", "iso_label user-select-none")
               .attr("id",function(d){return "iso_label"+d.NB_hour;})
               .attr("x", projection([48.856614,2.35])[0])
               .attr("y", function(d) {var y = projection([48.856614,2.35])[1]; return y; }) //faux mais osef
-              .attr("font-size", "10px")
+              .attr("font-size", "13px")
+              .attr("font-weight","bold")
               .attr("opacity",0)
               .text(function(d) {return d.label;});
 
@@ -346,9 +347,9 @@ function mapFranceDisplay(){
       .append("text")
           .attr("class", "city_label user-select-none")
           .attr("x", function(d) { return d.plong-10; })
-          .attr("y", function(d) { return d.plat +13; })
-          .attr("font-size", "12px")
-          .text(function(d) { return d.City;});
+          .attr("y", function(d) { return d.plat +15; })
+          .attr("font-size", "11px")
+          .text(function(d) { return d.City.toUpperCase();}); //test de majuscule
 
 
 
