@@ -7,9 +7,6 @@ body {
     float: left;
 }
 
-.travel{
-
-}
 .centeredCol{
     text-align: center;
     margin: 10px;
@@ -18,7 +15,13 @@ body {
     transition: 0.3s;
 }
 
+#left-item{
+    margin-left: 250px;
+}
 
+.nav-item{
+    margin-left: 25px;
+}
 .columnInformation{
 	height: 100%;
 	border: 2px solid black;
@@ -52,17 +55,17 @@ body {
 
 
 #scale{
-  position:fixed;
+  /*position:fixed;*/
   transform: translate(0, -3%); 
-  left: 15%;
-  width: 60%;
+  left: 2%;
+  width: 100%;
   top:80px;  
 }
 #popup{
   /*top: 50%;*/
   top:80px;
   position:fixed;
-  left: 15%;
+  left: 2%;
   width: 70%;
   transform: translate(0, -5%); 
   text-align: center;

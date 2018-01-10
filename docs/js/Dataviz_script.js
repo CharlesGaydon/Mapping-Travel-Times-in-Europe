@@ -225,7 +225,7 @@ function mapFranceDisplay(Which_map = "France"){
                     .on("click",function(d){
                         document.getElementById("travel").style.visibility = "hidden";
                         document.getElementById("destination").style.visibility = "hidden";
-                        changeInformationTravel("Hover city");
+                        changeInformationTravel("Hover over another city");
                         My_destination = undefined;
                         if(typeof My_reference !== 'undefined'){
                             if(My_reference.City !=d.City){
@@ -265,14 +265,14 @@ function mapFranceDisplay(Which_map = "France"){
                             //changeInformationTravel("ca change");
                         }else{
                             My_destination = undefined;
-                            //changeInformationCityDestination("Hover city", "undefined.jpg");
-                            changeInformationTravel("Hover city");
+                            //changeInformationCityDestination("Hover over another city", "undefined.jpg");
+                            changeInformationTravel("Hover over another city");
                         }
                     }else{
                         document.getElementById("travel").style.visibility = "visible";
                         My_destination = {City :d.City, plong : d.plong, plat : d.plat};
                         changeInformationCityDestination(d.City, d.City + ".jpg");
-                        changeInformationTravel("Hover city");
+                        changeInformationTravel("Hover over another city");
                     }
                     UpdateCitiesFrance();
                 })
@@ -298,7 +298,7 @@ function mapFranceDisplay(Which_map = "France"){
                     document.getElementById("travel").style.visibility = "hidden";
                     document.getElementById("destination").style.visibility = "hidden";
                     My_destination = undefined;
-                    changeInformationTravel("Hover city");
+                    changeInformationTravel("Hover over another city");
                     if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             document.getElementById("travel").style.visibility = "visible";
@@ -307,7 +307,7 @@ function mapFranceDisplay(Which_map = "France"){
                         }else{
                             My_reference = undefined;
                             changeInformationCityOrigin("Select city", My_reference + ".jpg");
-                            changeInformationTravel("Hover city");
+                            changeInformationTravel("Hover over another city");
                         }
                     }else{
                         document.getElementById("travel").style.visibility = "visible";
@@ -338,13 +338,13 @@ function mapFranceDisplay(Which_map = "France"){
                             
                         }else{
                             My_destination = undefined;
-                            //changeInformationCityDestination("Hover city", "undefined.jpg");
-                            changeInformationTravel("Hover city");
+                            //changeInformationCityDestination("Hover over another city", "undefined.jpg");
+                            changeInformationTravel("Hover over another city");
                         }
                     }else{
                         My_destination = {City :d.City, plong : d.plong, plat : d.plat};
                         changeInformationCityDestination(d.City, d.City + ".jpg");
-                        changeInformationTravel("Hover city");
+                        changeInformationTravel("Hover over another city");
                     }
                     UpdateCitiesFrance();
                 })
@@ -370,7 +370,7 @@ function mapFranceDisplay(Which_map = "France"){
                 document.getElementById("travel").style.visibility = "hidden";
                 document.getElementById("destination").style.visibility = "hidden";
                 My_destination = undefined;
-                changeInformationTravel("Hover city");
+                changeInformationTravel("Hover over another city");
                 if(typeof My_reference !== 'undefined'){
                         if(My_reference.City !=d.City){
                             document.getElementById("travel").style.visibility = "visible";
@@ -382,7 +382,7 @@ function mapFranceDisplay(Which_map = "France"){
                         }else{
                             My_reference = undefined;
                             changeInformationCityOrigin("Select city", My_reference + ".jpg");
-                            changeInformationTravel("Hover city");
+                            changeInformationTravel("Hover over another city");
                         }
                     }else{
                         document.getElementById("travel").style.visibility = "visible";
@@ -410,13 +410,13 @@ function mapFranceDisplay(Which_map = "France"){
                             
                         }else{
                             //My_destination = undefined;
-                            //changeInformationCityDestination("Hover city", "undefined.jpg");
-                            //changeInformationTravel("Hover city");
+                            //changeInformationCityDestination("Hover over another city", "undefined.jpg");
+                            //changeInformationTravel("Hover over another city");
                         }
                     }else{
                         //My_destination = {City :d.City, plong : d.plong, plat : d.plat};
                         //changeInformationCityDestination(d.City, d.City + ".jpg");
-                        //changeInformationTravel("Hover city");
+                        //changeInformationTravel("Hover over another city");
                     }
                     UpdateCitiesFrance();
                 })
