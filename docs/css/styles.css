@@ -109,6 +109,7 @@ body {
     font-size: 10px;
 }
 
+/*not used anymore ?*/
 div.tooltip {   
     position: absolute;         
     text-align: center;         
@@ -135,5 +136,14 @@ div.tooltip {
     stroke : orange;
     stroke-width : 1.5px;
     stroke-dasharray: 2
+}
+
+
+
+.user-select-none {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */      
 }
 
