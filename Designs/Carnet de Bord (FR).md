@@ -54,4 +54,35 @@ De design :
 Nous utilisons l'ide en ligne Cloud9 pour écrire notre site de manière collaborative .
 
 Données : 
-[Villes françaises](http://www.toutes-les-villes.com/villes-population.html) : nous prenons les 25 les plus peuplées, 25 étant la limite haute de l'API.  
+[Villes françaises](http://www.toutes-les-villes.com/villes-population.html) : nous prenons les 25 les plus peuplées, 25 étant la limite haute de l'API.
+
+C'est aussi le moment d'otenir les coordonnées géographiques des villes que nous souhaitons afficher. Là aussi nous utilisons une API Google, qui nous permet d'obtenir les latitudes et longitudes des villes concernées. 
+
+Une première carte est alors codée. On affiche alors un fond (France ou Europe) adoucie et on place les villes selon leur coordonnées géographiques).
+
+Un bref aperçu du travail permet de voir que certaines villes sont mal placées (erreur dans l'API Google). Une rectification manuelle est nécessaire.
+
+### Sixième semaine - déplacement des villes 
+
+Nous codons le changement de référentiel (distance --> temps) et nous obtenons une première visualisation correcte de notre travail. L'objectif est alors atteint, tout le reste n'est plus que de la mise en forme.
+
+
+### Janvier - mise en forme
+Implémentation de nombreux tooltips, notamment de "mouseover" qui permettent de rendre la carte interactive
+
+Ajout de d'un bordereau supérieur qui permet de switcher de cartes, présenter les auteurs et faire joli.
+
+Ajout d'un bordereau latéral qui permet d'afficher des informations quant à un trajet (ville de départ, d'arrivée, temps de trajet). Ce bordereau est dynamique et ajoute une vraie plus-value.
+
+
+Modification de certaines couleurs qui abimaient les yeux de l'utilisateur.
+
+### Sprint Final
+
+Correction des bugs.
+
+Ajout d'une fenêtre popup, qui explique notre travail et qui permet de ne pas afficher la visualisation brutalement.
+
+:::success
+Finalement notre travail ressemble assez à ce qu'on avait imaginé au début.
+:::
