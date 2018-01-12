@@ -55,6 +55,7 @@ function changeToFrance(){
 
 function mapFranceDisplay(Which_map = "France"){
     My_reference = undefined
+    hide_element_for_transition()
     // Canvas
     var width = 600,
     height = 500;
@@ -562,6 +563,9 @@ function new_coord(v_alpha, vecteur_1, vecteur_2){
     // Europe-Cities_Distance_Matrix.txt
 function mapEuropeDisplay(Which_map = "Europe"){
     My_reference = undefined
+    hide_element_for_transition()
+
+
     // Canvas
     var width = 600,
     height = 500;
@@ -998,6 +1002,12 @@ function getTimeBetweenTwoCities(My_reference, My_destination, cities){
         }
         i++;
     }
+}
+
+function hide_element_for_transition(){
+    document.getElementById("travel").style.visibility = "hidden";
+    document.getElementById("destination").style.visibility = "hidden";
+    changeInformationCityOrigin("Select city", My_reference + ".jpg");
 }
 
 init();
