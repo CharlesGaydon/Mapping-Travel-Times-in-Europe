@@ -54,7 +54,7 @@ function changeToFrance(){
 
 
 function mapFranceDisplay(Which_map = "France"){
-
+    My_reference = undefined
     // Canvas
     var width = 600,
     height = 500;
@@ -427,7 +427,7 @@ function mapFranceDisplay(Which_map = "France"){
         });
 
 
-
+        UpdateCitiesFrance()
     })
 }
 
@@ -561,7 +561,7 @@ function new_coord(v_alpha, vecteur_1, vecteur_2){
     // Europe-Cities_lat_long.csv
     // Europe-Cities_Distance_Matrix.txt
 function mapEuropeDisplay(Which_map = "Europe"){
-
+    My_reference = undefined
     // Canvas
     var width = 600,
     height = 500;
@@ -935,6 +935,7 @@ function mapEuropeDisplay(Which_map = "Europe"){
 
 
 
+        UpdateCitiesFrance()
     })
 }
 
