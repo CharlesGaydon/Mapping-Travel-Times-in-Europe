@@ -475,7 +475,7 @@ function UpdateCitiesFrance(){
             .attr("cx",My_reference.plong)
             .attr("cy",My_reference.plat)
             .attr("opacity",function(d){
-                return 1 - d.NB_hour/12
+                return 1 - d.NB_hour/30
             })
             // .transition().duration()
             .attr("r", function(d){
@@ -666,8 +666,10 @@ function mapEuropeDisplay(Which_map = "Europe"){
     console.log(an_hour)
     
     var isoH  = []
-    d3.range(12).forEach(function(d){
-        isoH.push({"NB_hour":d+1,"label": String(d+1) + "h", "r" : (d+1)*an_hour})
+    d3.range(24).forEach(function(d){
+        if(d%2==0){
+            isoH.push({"NB_hour":d+1,"label": String(d+1) + "h", "r" : (d+1)*an_hour})
+        }
     })
     isoH = isoH.reverse()
 
